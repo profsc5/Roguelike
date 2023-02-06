@@ -16,12 +16,12 @@ namespace nevim
         static Image domek_textura = Properties.Resources.dom;
         static Image kostel_textura = Properties.Resources.kostel;
 
-
+        Entita domecek = new Entita("domecek", domek_textura, 400, 400, 200, 180);
         //Inicializace hráèe na zaèátku hry
         public Entita e1 = new Entita("player", e1_textura, 2000000, 500, 80, 99);
 
         //Inicializace každé entity- musí se zadávat postupnì, aby se dobøe pøekrývaly
-        Entita domecek = new Entita("domek1", domek_textura, 400, 400, 200, 180);
+       
         /*Entita domek = new Entita("domecek1", domek_textura, new Random().Next(50, 850), new Random().Next(50, 700), 200, 180);
         Entita kostel = new Entita("kostel1", kostel_textura, new Random().Next(50, 850), new Random().Next(50, 700), 300, 300);
         Entita domek2 = new Entita("domecek2", domek_textura, new Random().Next(50, 850), new Random().Next(50, 700), 200, 180);*/
@@ -79,18 +79,13 @@ namespace nevim
                 {
                     
                     graphics.DrawRectangle(Pens.Black, tile.X, tile.Y, 80, 80);
-           
-                    if (tile.Active())
-                    {
-                        if (!tile.selfTile)
+
+                        if (tile.Active())
                         {
                             graphics.FillRectangle(Brushes.Green, tile.X, tile.Y, 80, 80);
                         }
-                        else if (tile.selfTile)
-                        {
-                            graphics.FillRectangle(Brushes.Red, tile.X, tile.Y, 80, 80);
-                        }
-                    }
+                    
+                    
                     if (tile.vypocitejVzdalenost(e1.x_pos, e1.y_pos) > 300)
                     {
                         graphics.FillEllipse(Brushes.Blue, tile.X, tile.Y, 40, 40);
@@ -101,7 +96,7 @@ namespace nevim
                     }
                     if (Tile.fronta.Contains(tile))
                     {
-                        graphics.DrawString(Tile.fronta.IndexOf(tile).ToString(), Font, Brushes.Black, tile.X, tile.Y);
+                        graphics.DrawString(tile.Krok.ToString(), Font, Brushes.Black, tile.X, tile.Y);
                     }
                     //graphics.DrawString(tile.Parametr.ToString(), Font, Brushes.Black, tile.X, tile.Y);
                 }
@@ -205,7 +200,7 @@ namespace nevim
         private void timer1_Tick(object sender, EventArgs e)
         {
             chobotnicka.najdiCestu();
-            Debug.Write(Tile.fronta.Count);
+       
             //Updates na stavy
             if (e1.Kolize())
             {
