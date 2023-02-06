@@ -40,17 +40,8 @@ public class AI : Entita
 
     public void najdiCestu()
     {
-        if (Tile.vyberCestu().Krok < 2 && !Tile.vyberCestu().Active() )
-        {
-
-                dalsiKrok = Tile.fronta[0];
-
-                sledujCil(dalsiKrok.X, dalsiKrok.Y);
-        }
-        else
-        {
-            Tile.fronta.Remove(Tile.fronta[0]);
-        }
+        dalsiKrok = Tile.vyberCestu()[0];
+        sledujCil(dalsiKrok.X, dalsiKrok.Y);
      
         
     }

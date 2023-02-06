@@ -79,6 +79,7 @@ namespace nevim
                 {
                     
                     graphics.DrawRectangle(Pens.Black, tile.X, tile.Y, 80, 80);
+           
                     if (tile.Active())
                     {
                         if (!tile.selfTile)
@@ -90,7 +91,6 @@ namespace nevim
                             graphics.FillRectangle(Brushes.Red, tile.X, tile.Y, 80, 80);
                         }
                     }
-                    graphics.FillRectangle(Brushes.Brown, Tile.fronta[0].X, Tile.fronta[0].Y, 80, 80);               
                     if (tile.vypocitejVzdalenost(e1.x_pos, e1.y_pos) > 300)
                     {
                         graphics.FillEllipse(Brushes.Blue, tile.X, tile.Y, 40, 40);
@@ -99,8 +99,15 @@ namespace nevim
                     {
                         graphics.FillEllipse(Brushes.Yellow, tile.X, tile.Y, 40, 40);
                     }
-                    graphics.DrawString(tile.Krok.ToString(), Font, Brushes.Black, tile.X, tile.Y);
+                    if (Tile.fronta.Contains(tile))
+                    {
+                        graphics.DrawString(Tile.fronta.IndexOf(tile).ToString(), Font, Brushes.Black, tile.X, tile.Y);
+                    }
+                    //graphics.DrawString(tile.Parametr.ToString(), Font, Brushes.Black, tile.X, tile.Y);
                 }
+                graphics.FillRectangle(Brushes.Brown, Tile.fronta[0].X, Tile.fronta[0].Y, 80, 80);
+
+
                 graphics.DrawLine(Pens.Red, new Point(chobotnicka.x_pos + chobotnicka.width / 2, chobotnicka.y_pos + chobotnicka.height / 2), new Point(e1.x_pos + e1.width / 2, e1.y_pos + e1.height / 2));
             }
         }

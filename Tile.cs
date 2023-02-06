@@ -1,4 +1,6 @@
-﻿namespace nevim
+﻿using System.Diagnostics;
+
+namespace nevim
 {
     public class Tile
     {
@@ -55,18 +57,35 @@
             }
             return 0;
         }
-        static public Tile vyberCestu()
+        static public List<Tile> vyberCestu()
         {
+            int min = 0;
             foreach (Tile t in Tiles)
             {
                 if (!t.selfTile&& !t.Active())
                 {
                     fronta.Add(t);
                 }
+               
 
             }
-            fronta.Sort((x, y) => x.Parametr.CompareTo(y.Parametr));
-            return fronta[0];
+            foreach (Tile tile in Tiles)
+            {
+                min = fronta[0].Parametr;
+
+                if (tile.Parametr < min )
+                {
+                    fronta[0] = tile;
+                }
+                else if(tile.Parametr> min)
+                {
+                    fronta.Remove(tile);
+                }
+
+
+            }
+
+            return fronta;
         }
 
     }
