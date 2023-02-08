@@ -13,25 +13,25 @@ public class AI : Entita
     
 
 
-        if (x_pos + width / 2 > cilX)
+        if (x_pos + width / 2 > cilX + 40)
         {
 
                 x_pos -= 5;
         
         }
-        if (x_pos + width / 2 < cilX)
+        if (x_pos + width / 2 < cilX+40)
         {
   
                 x_pos += 5;
            
         }
-        if (y_pos + height / 2 > cilY)
+        if (y_pos + height / 2 > cilY+40)
         {
 
             y_pos -= 5;
 
         }
-        if (y_pos + height / 2 < cilY)
+        if (y_pos + height / 2 < cilY+40)
         {
             y_pos += 5;
 
@@ -41,6 +41,7 @@ public class AI : Entita
     public void najdiCestu()
     {
         dalsiKrok = Tile.vyberCestu()[0];
+
         sledujCil(dalsiKrok.X, dalsiKrok.Y);
      
         

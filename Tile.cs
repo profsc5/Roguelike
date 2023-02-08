@@ -4,6 +4,7 @@ namespace nevim
 {
     public class Tile
     {
+        public bool aktivni;
         public bool selfTile = false;
         public int X { get; set; }
         public int Y { get; set; }
@@ -11,10 +12,11 @@ namespace nevim
         public int Vzdalenost { get; set; }
         public int Parametr => Krok + Vzdalenost;
         static public Tile[,] Tiles = new Tile[10, 10];
+       
 
         static public List<Tile> fronta = new List<Tile>();
 
-        public bool Kolize(Entita entita)
+        public bool Kolize(Entita entita )
         {
             if (X < entita.width + entita.x_pos
               && X + 80 > entita.x_pos
@@ -26,7 +28,7 @@ namespace nevim
             return false;
         }
 
-        public bool Active()
+        /*public bool Active()
         {
             //          !!!!!!!!!!!!!!!!!!!!!
             //!!!!!!!!!!PROBLEM PATHFINDINGU!!!!!!!!!!!!!!!
@@ -35,7 +37,7 @@ namespace nevim
             {
                 if (Kolize(entita))
                 {
-                    Debug.WriteLine(entita.username);
+                   
                     return true;                            
                 }
                 else
@@ -44,9 +46,14 @@ namespace nevim
                 }
             }
             return false;
-        }
+        }*/
         public int vypocitejVzdalenost(int cilX, int cilY)
         {
+            /*int D = 1;
+            double D2 = Math.Sqrt(2);
+            float dx = Math.Abs(X - cilX);
+            float dy = Math.Abs(Y - cilY);
+            return Convert.ToInt32(D * (dx + dy) + (D2 - 2 * D) * Math.Min(dx, dy));*/
             return Math.Abs(cilX - X) + Math.Abs(cilY - Y);
         }
         public int vypocitejKrok(int zdrojX, int zdrojY)
@@ -55,32 +62,34 @@ namespace nevim
         }
         static public List<Tile> vyberCestu()
         {
-            int min = 0;
+            int min ;
+            if (fronta.Count > 0)
+            {
+                foreach (Tile tile in Tiles)
+                {
+                    min = fronta[0].Parametr;
+
+                    if(tile.Parametr > min || tile.aktivni ) 
+                    {
+                        fronta.Remove(tile);
+                    }
+                    else if (tile.Parametr < min && tile.Krok < 2)
+                    {
+                        fronta[0] = tile;
+                    }
+                }
+            }
+            
             foreach (Tile t in Tiles)
             {
 
-                    if (!t.Active())
+                    if (!t.aktivni)
                     {
                         fronta.Add(t);
-                    }
-                
-               
-               
+                    }     
 
             }
-            foreach (Tile tile in Tiles)
-            {
-                min = fronta[0].Parametr;
-
-                if(tile.Parametr> min || tile.Active())
-                {
-                    fronta.Remove(tile);
-                }
-                else if (tile.Parametr < min && tile.Krok < 3)
-                {
-                    fronta[0] = tile;
-                }
-            }
+           
 
             return fronta;
         }

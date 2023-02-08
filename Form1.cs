@@ -15,13 +15,15 @@ namespace nevim
         static Image e2_textura = Properties.Resources.e2;
         static Image domek_textura = Properties.Resources.dom;
         static Image kostel_textura = Properties.Resources.kostel;
+        static Image blok_textura = Properties.Resources.blok;
 
-        Entita domecek = new Entita("domecek", domek_textura, 400, 400, 200, 180);
+        //Entita domecek = new Entita("domecek", domek_textura, 400, 400, 200, 180);
+
         //Inicializace hráèe na zaèátku hry
-        public Entita e1 = new Entita("player", e1_textura, 2000000, 500, 80, 99);
+        public Entita e1 = new Entita("player", e1_textura, 500, 500, 80, 99);
 
         //Inicializace každé entity- musí se zadávat postupnì, aby se dobøe pøekrývaly
-       
+
         /*Entita domek = new Entita("domecek1", domek_textura, new Random().Next(50, 850), new Random().Next(50, 700), 200, 180);
         Entita kostel = new Entita("kostel1", kostel_textura, new Random().Next(50, 850), new Random().Next(50, 700), 300, 300);
         Entita domek2 = new Entita("domecek2", domek_textura, new Random().Next(50, 850), new Random().Next(50, 700), 200, 180);*/
@@ -34,6 +36,7 @@ namespace nevim
             KeyPreview = true;
             DoubleBuffered = true;
             fillTiles();
+            GeneraceLokace();
         }
         //Rozdìlíme celou mapu na dílky
         private void fillTiles()
@@ -71,7 +74,7 @@ namespace nevim
             }
             //
             //DEBUGGING
-            //
+            //a
             if (debugging)
             {
 
@@ -80,10 +83,11 @@ namespace nevim
                     
                     graphics.DrawRectangle(Pens.Black, tile.X, tile.Y, 80, 80);
 
-                        if (tile.Active())
+                        if (tile.aktivni)
                         {
                             graphics.FillRectangle(Brushes.Green, tile.X, tile.Y, 80, 80);
                         }
+        
                     
                     
                     if (tile.vypocitejVzdalenost(e1.x_pos, e1.y_pos) > 300)
@@ -109,7 +113,16 @@ namespace nevim
 
         private void GeneraceLokace()
         {
+            Random rand = new Random();
+            foreach(Tile t in Tile.Tiles)
+            {
+                if(rand.Next(0,10) == 2)
+                {
+                    new Entita("tile", blok_textura, t.X, t.Y, 80, 80);
 
+                    t.aktivni  = true;
+                }
+            }
         }
 
         //Pøesuneme panáèka pokaždé, když je na kraji mapy
@@ -132,7 +145,10 @@ namespace nevim
             else if (e1.y_pos < 10)
             {
                 e1.y_pos = Height - 68;
+                
             }
+          
+            
 
         }
 

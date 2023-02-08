@@ -9,6 +9,7 @@
     public string kolider;
     public Image textura;
 
+    static public List<Entita> generatedTiles = new List<Entita>(); 
     static public List<Entita> entitaList = new List<Entita>();
 
     public Entita(string username, Image textura, int x_pos, int y_pos, int width, int height)
@@ -20,6 +21,10 @@
         this.width = width;
         this.height = height;
         entitaList.Add(this);
+        if(username == "tile")
+        {
+            generatedTiles.Add(this);
+        }
 
     }
     public bool Kolize()
