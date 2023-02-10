@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace nevim
+﻿namespace nevim
 {
     public class Tile
     {
@@ -12,11 +10,11 @@ namespace nevim
         public int Vzdalenost { get; set; }
         public int Parametr => Krok + Vzdalenost;
         static public Tile[,] Tiles = new Tile[10, 10];
-       
+
 
         static public List<Tile> fronta = new List<Tile>();
 
-        public bool Kolize(Entita entita )
+        public bool Kolize(Entita entita)
         {
             if (X < entita.width + entita.x_pos
               && X + 80 > entita.x_pos
@@ -58,18 +56,18 @@ namespace nevim
         }
         public int vypocitejKrok(int zdrojX, int zdrojY)
         {
-                return vypocitejVzdalenost(zdrojX, zdrojY) / 80;         
+            return vypocitejVzdalenost(zdrojX, zdrojY) / 80;
         }
         static public List<Tile> vyberCestu()
         {
-            int min ;
+            int min;
             if (fronta.Count > 0)
             {
                 foreach (Tile tile in Tiles)
                 {
                     min = fronta[0].Parametr;
 
-                    if(tile.Parametr > min || tile.aktivni ) 
+                    if (tile.Parametr > min || tile.aktivni)
                     {
                         fronta.Remove(tile);
                     }
@@ -79,17 +77,17 @@ namespace nevim
                     }
                 }
             }
-            
+
             foreach (Tile t in Tiles)
             {
 
-                    if (!t.aktivni)
-                    {
-                        fronta.Add(t);
-                    }     
+                if (!t.aktivni)
+                {
+                    fronta.Add(t);
+                }
 
             }
-           
+
 
             return fronta;
         }

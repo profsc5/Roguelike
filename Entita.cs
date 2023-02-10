@@ -9,7 +9,7 @@
     public string kolider;
     public Image textura;
 
-    static public List<Entita> generatedTiles = new List<Entita>(); 
+    static public List<string> generatedTiles = new List<string>();
     static public List<Entita> entitaList = new List<Entita>();
 
     public Entita(string username, Image textura, int x_pos, int y_pos, int width, int height)
@@ -21,11 +21,26 @@
         this.width = width;
         this.height = height;
         entitaList.Add(this);
-        if(username == "tile")
+        if (username == "tile")
         {
-            generatedTiles.Add(this);
+            generatedTiles.Add(this.username);
         }
 
+    }
+    static public Entita FindEnt(string name)
+    {
+        foreach (Entita ent in entitaList)
+        {
+            if (ent.username == name)
+            {
+                return ent;
+            }
+            else
+            {
+                continue;
+            }
+        }
+        return null;
     }
     public bool Kolize()
     {

@@ -1,9 +1,8 @@
-using System.Diagnostics;
-
 namespace nevim
 {
     public partial class Form1 : Form
     {
+        int smer;
         bool collision = false;
         bool buttonClick = false;
         bool killplayerBool = false;
@@ -60,6 +59,7 @@ namespace nevim
                 }
             }
 
+
         }
 
         //Vykreslování textur
@@ -80,16 +80,16 @@ namespace nevim
 
                 foreach (Tile tile in Tile.Tiles)
                 {
-                    
+
                     graphics.DrawRectangle(Pens.Black, tile.X, tile.Y, 80, 80);
 
-                        if (tile.aktivni)
-                        {
-                            graphics.FillRectangle(Brushes.Green, tile.X, tile.Y, 80, 80);
-                        }
-        
-                    
-                    
+                    if (tile.aktivni)
+                    {
+                        graphics.FillRectangle(Brushes.Green, tile.X, tile.Y, 80, 80);
+                    }
+
+
+
                     if (tile.vypocitejVzdalenost(e1.x_pos, e1.y_pos) > 300)
                     {
                         graphics.FillEllipse(Brushes.Blue, tile.X, tile.Y, 40, 40);
@@ -110,17 +110,77 @@ namespace nevim
                 graphics.DrawLine(Pens.Red, new Point(chobotnicka.x_pos + chobotnicka.width / 2, chobotnicka.y_pos + chobotnicka.height / 2), new Point(e1.x_pos + e1.width / 2, e1.y_pos + e1.height / 2));
             }
         }
-
-        private void GeneraceLokace()
+        private void GeneraceKosticek()
         {
             Random rand = new Random();
-            foreach(Tile t in Tile.Tiles)
+
+            foreach (Tile t in Tile.Tiles)
             {
-                if(rand.Next(0,10) == 2)
+                if (rand.Next(0, 10) == 2)
                 {
                     new Entita("tile", blok_textura, t.X, t.Y, 80, 80);
 
-                    t.aktivni  = true;
+
+                    t.aktivni = true;
+                }
+            }
+        }
+        private void GeneraceLokace()
+        {
+            if (Entita.generatedTiles.Count > 0)
+            {
+                Entita.generatedTiles.Add("NULL");
+
+
+            }
+            GeneraceKosticek();
+            foreach (Entita ent in Entita.entitaList)
+            {
+                
+                if (ent.username == "tile")
+                {
+                    Entita.generatedTiles.Add(ent.username);
+                    
+                }
+            }
+          
+            if (PohybMapy())
+            {
+
+
+                foreach (string s in Entita.generatedTiles)
+                {
+                    if (s != "NULL")
+                    {
+                        Entita.entitaList.Remove(Entita.FindEnt(s));
+                        continue;
+                    }
+                    else
+                    {
+                        switch (smer)
+                        {
+                            case 1:
+                                e1.x_pos = 5;
+                                break;
+                            case 2:
+                                e1.x_pos = Width - 24;
+                                break;
+                            case 3:
+                                e1.y_pos = 5;
+                                break;
+                            case 4:
+                                e1.y_pos = Height - 68;
+                                break;
+                        }
+                        foreach (Tile tile in Tile.Tiles)
+                        {
+                            tile.aktivni = false;
+                        }
+                        GeneraceKosticek();
+                        chobotnicka = new AI("chobotnicka", enemy_textura, 50, 50, 100, 100);
+
+                    }
+                    return;
                 }
             }
         }
@@ -128,27 +188,38 @@ namespace nevim
         //Pøesuneme panáèka pokaždé, když je na kraji mapy
         //- vygeneruje se nová èást mapy -
         //!! musí se ukládat pozice jednotlivých textur do array
-        private void PohybMapy()
+        private bool PohybMapy()
         {
-            if (e1.x_pos > Width - 24)
+            if (AI.pocetPriserek == 0)
             {
-                e1.x_pos = 5;
+                if (e1.x_pos > Width - 24)
+                {
+                    smer = 1;
+                    return true;
+                }
+                else if (e1.x_pos < 10)
+                {
+                    smer = 2;
+                    return true;
+
+                }
+                else if (e1.y_pos > Height - 68)
+                {
+                    smer = 3;
+                    return true;
+
+                }
+                else if (e1.y_pos < 10)
+                {
+                    smer = 4;
+                    return true;
+
+                }
+                return false;
+
+
             }
-            else if (e1.x_pos < 10)
-            {
-                e1.x_pos = Width - 24;
-            }
-            else if (e1.y_pos > Height - 68)
-            {
-                e1.y_pos = 5;
-            }
-            else if (e1.y_pos < 10)
-            {
-                e1.y_pos = Height - 68;
-                
-            }
-          
-            
+            else return false;
 
         }
 
@@ -216,7 +287,7 @@ namespace nevim
         private void timer1_Tick(object sender, EventArgs e)
         {
             chobotnicka.najdiCestu();
-       
+
             //Updates na stavy
             if (e1.Kolize())
             {
@@ -240,7 +311,10 @@ namespace nevim
             }
 
 
-            PohybMapy();
+            if (PohybMapy())
+            {
+                GeneraceLokace();
+            }
             Refresh();
 
 
@@ -268,6 +342,12 @@ namespace nevim
             else
                 debugging = false;
 
+        }
+
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+            Entita.entitaList.Remove(Entita.FindEnt("chobotnicka"));
+            AI.pocetPriserek--;
         }
         //
 
