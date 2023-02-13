@@ -19,7 +19,7 @@ namespace nevim
         //Entita domecek = new Entita("domecek", domek_textura, 400, 400, 200, 180);
 
         //Inicializace hráèe na zaèátku hry
-        public Entita e1 = new Entita("player", e1_textura, 500, 500, 80, 99);
+        public Entita e1 = new Entita("player", e1_textura, 500, 500, 60, 79);
 
         //Inicializace každé entity- musí se zadávat postupnì, aby se dobøe pøekrývaly
 
@@ -74,7 +74,7 @@ namespace nevim
             }
             //
             //DEBUGGING
-            //a
+            //
             if (debugging)
             {
 
@@ -118,7 +118,7 @@ namespace nevim
             {
                 if (rand.Next(0, 10) == 2)
                 {
-                    new Entita("tile", blok_textura, t.X, t.Y, 80, 80);
+                    new Entita("tile", blok_textura, t.X, t.Y, 75, 75);
 
 
                     t.aktivni = true;
