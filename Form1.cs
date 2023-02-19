@@ -36,6 +36,7 @@ namespace nevim
             DoubleBuffered = true;
             fillTiles();
             GeneraceLokace();
+            BackgroundImage = Properties.Resources.background;
         }
         //Rozdìlíme celou mapu na dílky
         private void fillTiles()
@@ -176,6 +177,7 @@ namespace nevim
                         {
                             tile.aktivni = false;
                         }
+                        BackgroundImage = Properties.Resources.background;
                         GeneraceKosticek();
                         chobotnicka = new AI("chobotnicka", enemy_textura, 50, 50, 100, 100);
 
@@ -192,6 +194,8 @@ namespace nevim
         {
             if (AI.pocetPriserek == 0)
             {
+                BackgroundImage = null;
+                BackColor = Color.White;
                 if (e1.x_pos > Width - 24)
                 {
                     smer = 1;
@@ -232,28 +236,28 @@ namespace nevim
                 case Keys.A:
                     if (!collision || collision && e1.direction == 1)
                     {
-                        e1.x_pos -= 15;
+                        e1.x_pos -= 10;
                     }
 
                     break;
                 case Keys.D:
                     if (!collision || collision && e1.direction == 2)
                     {
-                        e1.x_pos += 15;
+                        e1.x_pos += 10;
                     }
 
                     break;
                 case Keys.W:
                     if (!collision || collision && e1.direction == 3)
                     {
-                        e1.y_pos -= 15;
+                        e1.y_pos -= 10;
                     }
 
                     break;
                 case Keys.S:
                     if (!collision || collision && e1.direction == 4)
                     {
-                        e1.y_pos += 15;
+                        e1.y_pos += 10;
                     }
 
                     break;

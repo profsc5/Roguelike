@@ -31,6 +31,7 @@
     {
         foreach (Entita ent in entitaList)
         {
+
             if (ent.username == name)
             {
                 return ent;

@@ -47,12 +47,12 @@
         }*/
         public int vypocitejVzdalenost(int cilX, int cilY)
         {
-            /*int D = 1;
+            int D = 1;
             double D2 = Math.Sqrt(2);
             float dx = Math.Abs(X - cilX);
             float dy = Math.Abs(Y - cilY);
-            return Convert.ToInt32(D * (dx + dy) + (D2 - 2 * D) * Math.Min(dx, dy));*/
-            return Math.Abs(cilX - X) + Math.Abs(cilY - Y);
+            return Convert.ToInt32(D * (dx + dy) + (D2 - 2 * D) * Math.Min(dx, dy));
+            //return Math.Abs(cilX - X) + Math.Abs(cilY - Y);
         }
         public int vypocitejKrok(int zdrojX, int zdrojY)
         {

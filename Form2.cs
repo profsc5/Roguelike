@@ -12,9 +12,13 @@ namespace nevim
 {
     public partial class Form2 : Form
     {
+        Image pozadi1 = Properties.Resources.back1;
+        Image pozadi2= Properties.Resources.back2;
+        Image pozadi3= Properties.Resources.back3;
         int n = 0;
         public Form2()
         {
+
             InitializeComponent();
             BackgroundImage = Properties.Resources.back1;
           
@@ -48,9 +52,9 @@ namespace nevim
             }
             switch (n)
             {
-                case 0: BackgroundImage = Properties.Resources.back1; break;
-                case 1: BackgroundImage = Properties.Resources.back2;  break;
-                case 2: BackgroundImage = Properties.Resources.back3; break;
+                case 0: BackgroundImage = pozadi1; break;
+                case 1: BackgroundImage = pozadi2;  break;
+                case 2: BackgroundImage = pozadi3; break;
             }
             n++;
    
@@ -61,6 +65,11 @@ namespace nevim
         private void Form2_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.DrawImage(Properties.Resources.nadpisR, 55, 28, 647, 121);
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 }
