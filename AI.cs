@@ -1,6 +1,6 @@
 ﻿using nevim;
 using System.Diagnostics;
-using System.Xml.Linq;
+
 
 public class AI : Entita
 {
@@ -44,7 +44,10 @@ public class AI : Entita
 
     public void najdiCestu()
     {
+        
         dalsiKrok = Tile.vyberCestu()[0];
+
+
 
         sledujCil(dalsiKrok.X, dalsiKrok.Y);
 

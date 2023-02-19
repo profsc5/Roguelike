@@ -245,23 +245,24 @@ namespace nevim
                     {
                         e1.x_pos += 10;
                     }
-
+                  
                     break;
                 case Keys.W:
                     if (!collision || collision && e1.direction == 3)
                     {
                         e1.y_pos -= 10;
                     }
-
+                  
                     break;
                 case Keys.S:
                     if (!collision || collision && e1.direction == 4)
                     {
                         e1.y_pos += 10;
                     }
-
+                   
                     break;
             }
+            Refresh();
 
 
             //

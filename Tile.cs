@@ -16,6 +16,7 @@
 
         public bool Kolize(Entita entita)
         {
+            if(entita== null) return false;
             if (X < entita.width + entita.x_pos
               && X + 80 > entita.x_pos
               && Y < entita.y_pos + entita.height
@@ -24,35 +25,21 @@
                 return true;
             }
             return false;
-        }
-
-        /*public bool Active()
-        {
-            //          !!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!PROBLEM PATHFINDINGU!!!!!!!!!!!!!!!
-            //          !!!!!!!!!!!!!!!!!!!!!
-            foreach (Entita entita in Entita.entitaList)
-            {
-                if (Kolize(entita))
-                {
-                   
-                    return true;                            
-                }
-                else
-                {                    
-                    return false;
-                }
-            }
-            return false;
-        }*/
+        }     
         public int vypocitejVzdalenost(int cilX, int cilY)
         {
-            int D = 1;
+            /*int dx = Math.Abs(cilX - X);
+            int dy = Math.Abs(cilY - Y);
+            int diagonal = Math.Min(dx, dy);
+            int orthogonal = dx + dy - 2 * diagonal;
+            return diagonal * 5 + orthogonal * 7;*/
+           
+            /*int D = 1;
             double D2 = Math.Sqrt(2);
             float dx = Math.Abs(X - cilX);
             float dy = Math.Abs(Y - cilY);
-            return Convert.ToInt32(D * (dx + dy) + (D2 - 2 * D) * Math.Min(dx, dy));
-            //return Math.Abs(cilX - X) + Math.Abs(cilY - Y);
+            return Convert.ToInt32(D * (dx + dy) + (D2 - 2 * D) * Math.Min(dx, dy));*/
+           return Math.Abs(cilX - X) + Math.Abs(cilY - Y);
         }
         public int vypocitejKrok(int zdrojX, int zdrojY)
         {
@@ -67,7 +54,7 @@
                 {
                     min = fronta[0].Parametr;
 
-                    if (tile.Parametr > min || tile.aktivni)
+                    if (tile.Parametr > min || (tile.Kolize(Entita.FindEnt("chobotnicka")) && tile.aktivni))
                     {
                         fronta.Remove(tile);
                     }

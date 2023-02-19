@@ -46,6 +46,7 @@ namespace nevim
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+           
             if (n == 3)
             {
                 n = 0;
@@ -57,14 +58,13 @@ namespace nevim
                 case 2: BackgroundImage = pozadi3; break;
             }
             n++;
-   
-            Refresh();
 
         }
 
         private void Form2_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(Properties.Resources.nadpisR, 55, 28, 647, 121);
+            Graphics kp = e.Graphics;
+            kp.DrawImage(Properties.Resources.nadpisR, 55, 28, 647, 121);
         }
 
         private void Form2_Load(object sender, EventArgs e)

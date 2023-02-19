@@ -161,12 +161,22 @@ namespace nevim.Properties {
         }
         
         /// <summary>
-        ///   Vyhledává lokalizovaný prostředek typu System.Byte[].
+        ///   Vyhledává lokalizovaný prostředek typu System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] Gamix {
+        internal static System.Drawing.Bitmap hrej {
             get {
-                object obj = ResourceManager.GetObject("Gamix", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("hrej", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Vyhledává lokalizovaný prostředek typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap konec {
+            get {
+                object obj = ResourceManager.GetObject("konec", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
