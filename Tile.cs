@@ -54,7 +54,7 @@
                 {
                     min = fronta[0].Parametr;
 
-                    if (tile.Parametr > min || (tile.Kolize(Entita.FindEnt("chobotnicka")) && tile.aktivni))
+                    if (tile.Parametr > min || tile.aktivni || (tile.Kolize(Entita.FindEnt("chobotnicka")) && tile.aktivni))
                     {
                         fronta.Remove(tile);
                     }

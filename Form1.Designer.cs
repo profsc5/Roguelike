@@ -33,8 +33,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // timer1
@@ -72,20 +72,10 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "label1";
             // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(12, 27);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(105, 23);
-            this.button3.TabIndex = 0;
-            this.button3.Text = "Postav dum";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button1_Click);
-            // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(12, 56);
+            this.checkBox1.Location = new System.Drawing.Point(12, 12);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(84, 19);
             this.checkBox1.TabIndex = 1;
@@ -93,13 +83,23 @@
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(696, 16);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(48, 15);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Skóré: 0";
+            // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(784, 761);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.button3);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Roguelike - hra";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseClick);
@@ -115,7 +115,7 @@
         private Button button1;
         private Button button2;
         private Label label1;
-        private Button button3;
         private CheckBox checkBox1;
+        private Label label2;
     }
 }

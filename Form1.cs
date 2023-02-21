@@ -2,6 +2,7 @@ namespace nevim
 {
     public partial class Form1 : Form
     {
+        public static int skore,poskozeni,rychlost = 10;
         int smer;
         bool collision = false;
         bool buttonClick = false;
@@ -34,9 +35,10 @@ namespace nevim
             InitializeComponent();
             KeyPreview = true;
             DoubleBuffered = true;
+            BackgroundImage = Properties.Resources.background;
             fillTiles();
             GeneraceLokace();
-            BackgroundImage = Properties.Resources.background;
+    
         }
         //Rozdìlíme celou mapu na dílky
         private void fillTiles()
@@ -59,8 +61,6 @@ namespace nevim
                     }
                 }
             }
-
-
         }
 
         //Vykreslování textur
@@ -119,10 +119,14 @@ namespace nevim
             {
                 if (rand.Next(0, 10) == 2)
                 {
-                    new Entita("tile", blok_textura, t.X, t.Y, 75, 75);
+                    if(t.vypocitejVzdalenost(e1.x_pos,e1.y_pos) > 80 && t.vypocitejVzdalenost(chobotnicka.x_pos, chobotnicka.y_pos) > 80)
+                    {
+                        new Entita("tile", blok_textura, t.X, t.Y, 75, 75);
 
 
-                    t.aktivni = true;
+                        t.aktivni = true;
+                    }
+           
                 }
             }
         }
@@ -176,6 +180,7 @@ namespace nevim
                         foreach (Tile tile in Tile.Tiles)
                         {
                             tile.aktivni = false;
+                            
                         }
                         BackgroundImage = Properties.Resources.background;
                         GeneraceKosticek();
@@ -236,33 +241,32 @@ namespace nevim
                 case Keys.A:
                     if (!collision || collision && e1.direction == 1)
                     {
-                        e1.x_pos -= 10;
+                        e1.x_pos -= rychlost;
                     }
 
                     break;
                 case Keys.D:
                     if (!collision || collision && e1.direction == 2)
                     {
-                        e1.x_pos += 10;
+                        e1.x_pos += rychlost;
                     }
                   
                     break;
                 case Keys.W:
                     if (!collision || collision && e1.direction == 3)
                     {
-                        e1.y_pos -= 10;
+                        e1.y_pos -= rychlost;
                     }
                   
                     break;
                 case Keys.S:
                     if (!collision || collision && e1.direction == 4)
                     {
-                        e1.y_pos += 10;
+                        e1.y_pos += rychlost;
                     }
                    
                     break;
             }
-            Refresh();
 
 
             //
@@ -353,6 +357,8 @@ namespace nevim
         {
             Entita.entitaList.Remove(Entita.FindEnt("chobotnicka"));
             AI.pocetPriserek--;
+            skore++;
+            label2.Text = "Skóré: " + skore.ToString();
         }
         //
 
