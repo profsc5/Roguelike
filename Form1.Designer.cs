@@ -77,7 +77,7 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.Location = new System.Drawing.Point(12, 12);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(84, 19);
+            this.checkBox1.Size = new System.Drawing.Size(104, 24);
             this.checkBox1.TabIndex = 1;
             this.checkBox1.Text = "debugging";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -88,7 +88,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(696, 16);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 15);
+            this.label2.Size = new System.Drawing.Size(61, 20);
             this.label2.TabIndex = 2;
             this.label2.Text = "Skóré: 0";
             // 

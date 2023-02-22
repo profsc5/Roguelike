@@ -35,9 +35,10 @@
             // 
             // buttonRychlost
             // 
-            this.buttonRychlost.Location = new System.Drawing.Point(99, 223);
+            this.buttonRychlost.Location = new System.Drawing.Point(113, 297);
+            this.buttonRychlost.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonRychlost.Name = "buttonRychlost";
-            this.buttonRychlost.Size = new System.Drawing.Size(93, 80);
+            this.buttonRychlost.Size = new System.Drawing.Size(106, 107);
             this.buttonRychlost.TabIndex = 0;
             this.buttonRychlost.Text = "Zvyš rychlost!";
             this.buttonRychlost.UseVisualStyleBackColor = true;
@@ -45,9 +46,10 @@
             // 
             // buttonPoskozeni
             // 
-            this.buttonPoskozeni.Location = new System.Drawing.Point(308, 223);
+            this.buttonPoskozeni.Location = new System.Drawing.Point(352, 297);
+            this.buttonPoskozeni.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonPoskozeni.Name = "buttonPoskozeni";
-            this.buttonPoskozeni.Size = new System.Drawing.Size(93, 80);
+            this.buttonPoskozeni.Size = new System.Drawing.Size(106, 107);
             this.buttonPoskozeni.TabIndex = 1;
             this.buttonPoskozeni.Text = "Zvyš poškození!";
             this.buttonPoskozeni.UseVisualStyleBackColor = true;
@@ -55,22 +57,24 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(223, 166);
+            this.label1.Location = new System.Drawing.Point(255, 221);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 15);
+            this.label1.Size = new System.Drawing.Size(53, 20);
             this.label1.TabIndex = 3;
             this.label1.Text = "Skóré: ";
             // 
             // Form3
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 461);
+            this.ClientSize = new System.Drawing.Size(553, 615);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonPoskozeni);
             this.Controls.Add(this.buttonRychlost);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form3";
             this.Text = "Roguelike - obchod";
+            this.Load += new System.EventHandler(this.Form3_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form3_Paint);
             this.ResumeLayout(false);
             this.PerformLayout();

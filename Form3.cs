@@ -1,22 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace nevim
 {
     public partial class Form3 : Form
     {
-
+        int zetony;
         public Form3()
         {
             InitializeComponent();
-            label1.Text ="Žetony: " + Form1.skore.ToString();
         }
 
         private void Form3_Paint(object sender, PaintEventArgs e)
@@ -27,16 +19,58 @@ namespace nevim
 
         private void buttonRychlost_Click(object sender, EventArgs e)
         {
+
+
+
             int cena = 5;
-            if(cena <= Form1.skore)
+            if (cena <= zetony)
             {
+
+
                 Form1.rychlost += 5;
+                zetony -= cena;
+                StreamWriter strW = new StreamWriter("skore.txt");
+
+                Debug.Write(zetony);
+                //Převod na jedničky, abychom snadněji odčítali žetony
+                for (int x = 0; x < zetony; x++)
+                {
+                    strW.Write(1);
+                }
+                strW.Close();
+
                 MessageBox.Show("Zvýšil sis rychlost o 5 bodů!");
+                nactiZetony();
+
             }
             else
             {
                 MessageBox.Show("Nemáš dostatek žetonů!");
             }
         }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+
+            nactiZetony();
+
+
+        }
+        void nactiZetony()
+        {
+            StreamReader strR = new StreamReader("skore.txt", Encoding.Default);
+            while (strR.Peek() != -1)
+            {
+                foreach (char ch in strR.ReadLine())
+                {
+                    zetony += (int)Char.GetNumericValue(ch);
+
+                }
+            }
+            label1.Text = "Žetony: " + zetony.ToString();
+
+            strR.Close();
+        }
     }
+
 }

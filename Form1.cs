@@ -1,8 +1,11 @@
+using System.Diagnostics;
+using System.Security.Cryptography.Xml;
+
 namespace nevim
 {
     public partial class Form1 : Form
     {
-        public static int skore,poskozeni,rychlost = 10;
+        public static int skore, poskozeni, ulozeneSkore, rychlost = 10;
         int smer;
         bool collision = false;
         bool buttonClick = false;
@@ -16,6 +19,7 @@ namespace nevim
         static Image domek_textura = Properties.Resources.dom;
         static Image kostel_textura = Properties.Resources.kostel;
         static Image blok_textura = Properties.Resources.blok;
+
 
         //Entita domecek = new Entita("domecek", domek_textura, 400, 400, 200, 180);
 
@@ -38,7 +42,7 @@ namespace nevim
             BackgroundImage = Properties.Resources.background;
             fillTiles();
             GeneraceLokace();
-    
+
         }
         //Rozdìlíme celou mapu na dílky
         private void fillTiles()
@@ -119,76 +123,68 @@ namespace nevim
             {
                 if (rand.Next(0, 10) == 2)
                 {
-                    if(t.vypocitejVzdalenost(e1.x_pos,e1.y_pos) > 80 && t.vypocitejVzdalenost(chobotnicka.x_pos, chobotnicka.y_pos) > 80)
+                    if (t.vypocitejVzdalenost(e1.x_pos, e1.y_pos) > 80 && t.vypocitejVzdalenost(chobotnicka.x_pos, chobotnicka.y_pos) > 80)
                     {
                         new Entita("tile", blok_textura, t.X, t.Y, 75, 75);
 
 
                         t.aktivni = true;
                     }
-           
+
                 }
             }
         }
         private void GeneraceLokace()
         {
-            if (Entita.generatedTiles.Count > 0)
-            {
-                Entita.generatedTiles.Add("NULL");
-
-
-            }
             GeneraceKosticek();
             foreach (Entita ent in Entita.entitaList)
             {
-                
+
                 if (ent.username == "tile")
                 {
                     Entita.generatedTiles.Add(ent.username);
-                    
+
                 }
             }
-          
+
             if (PohybMapy())
             {
 
 
-                foreach (string s in Entita.generatedTiles)
+                switch (smer)
                 {
-                    if (s != "NULL")
-                    {
-                        Entita.entitaList.Remove(Entita.FindEnt(s));
-                        continue;
-                    }
-                    else
-                    {
-                        switch (smer)
-                        {
-                            case 1:
-                                e1.x_pos = 5;
-                                break;
-                            case 2:
-                                e1.x_pos = Width - 24;
-                                break;
-                            case 3:
-                                e1.y_pos = 5;
-                                break;
-                            case 4:
-                                e1.y_pos = Height - 68;
-                                break;
-                        }
-                        foreach (Tile tile in Tile.Tiles)
-                        {
-                            tile.aktivni = false;
-                            
-                        }
-                        BackgroundImage = Properties.Resources.background;
-                        GeneraceKosticek();
-                        chobotnicka = new AI("chobotnicka", enemy_textura, 50, 50, 100, 100);
-
-                    }
-                    return;
+                    case 1:
+                        e1.x_pos = 5;
+                        break;
+                    case 2:
+                        e1.x_pos = Width - 24;
+                        break;
+                    case 3:
+                        e1.y_pos = 5;
+                        break;
+                    case 4:
+                        e1.y_pos = Height - 68;
+                        break;
                 }
+                foreach (Tile tile in Tile.Tiles)
+                {
+                    tile.aktivni = false;                
+                }
+
+                for(int x =0; x < Entita.entitaList.Count; x++) {
+                    if (Entita.entitaList[x].username == "tile")
+                    {
+                        
+                        Entita.entitaList.RemoveAt(x);
+                        Debug.Write("deleting " + x);
+                    }
+                }
+                BackColor = Color.White;
+                BackgroundImage = Properties.Resources.background;
+                GeneraceKosticek();
+                chobotnicka = new AI("chobotnicka", enemy_textura, 50, 50, 100, 100);
+
+
             }
         }
 
@@ -197,7 +193,7 @@ namespace nevim
         //!! musí se ukládat pozice jednotlivých textur do array
         private bool PohybMapy()
         {
-            if (AI.pocetPriserek == 0)
+            if (AI.pocetPriserek <1)
             {
                 BackgroundImage = null;
                 BackColor = Color.White;
@@ -250,21 +246,21 @@ namespace nevim
                     {
                         e1.x_pos += rychlost;
                     }
-                  
+
                     break;
                 case Keys.W:
                     if (!collision || collision && e1.direction == 3)
                     {
                         e1.y_pos -= rychlost;
                     }
-                  
+
                     break;
                 case Keys.S:
                     if (!collision || collision && e1.direction == 4)
                     {
                         e1.y_pos += rychlost;
                     }
-                   
+
                     break;
             }
 
@@ -281,6 +277,12 @@ namespace nevim
         {
             if (killplayerBool == true)
             {
+                StreamWriter strW = new StreamWriter("skore.txt", true);
+
+                strW.Write(skore.ToString());
+
+                strW.Close();
+
                 DialogResult m = MessageBox.Show("Prohrál jsi :( \n\nChceš to zkusit znovu?", "Prohra :(", MessageBoxButtons.YesNo);
                 if (m == DialogResult.Yes)
                 {
@@ -344,6 +346,9 @@ namespace nevim
             buttonClick = false;
         }
 
+
+
+
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked)
@@ -365,7 +370,7 @@ namespace nevim
 
 
 
-        //DESTRUKTIVNI BUDOVY - JEDEN HIT, DVA, TRI, SMRT - MENI SE TEXTURA
+
 
     }
 }

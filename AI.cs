@@ -44,25 +44,26 @@ public class AI : Entita
 
     public void najdiCestu()
     {
-        
+
         dalsiKrok = Tile.vyberCestu()[0];
 
-
-
         sledujCil(dalsiKrok.X, dalsiKrok.Y);
-
-
     }
 
     public bool KillPlayer()
     {
+        if (Entita.entitaList.Contains(this))
+        {
+            Kolize();
+        }
+
         if (kolider == "player")
         {
             return true;
         }
         return false;
     }
-    
+
 
 
 }
