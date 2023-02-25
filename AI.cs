@@ -1,5 +1,4 @@
 ﻿using nevim;
-using System.Diagnostics;
 
 
 public class AI : Entita
@@ -10,7 +9,6 @@ public class AI : Entita
     public AI(string username, Image textura, int x_pos, int y_pos, int width, int height) : base(username, textura, x_pos, y_pos, width, height)
     {
         pocetPriserek++;
-        Debug.WriteLine(pocetPriserek);
     }
     public void sledujCil(int cilX, int cilY)
     {
@@ -31,7 +29,6 @@ public class AI : Entita
         }
         if (y_pos + height / 2 > cilY + 40)
         {
-
             y_pos -= 5;
 
         }
@@ -40,24 +37,35 @@ public class AI : Entita
             y_pos += 5;
 
         }
+
+
     }
 
     public void najdiCestu()
     {
 
-        dalsiKrok = Tile.vyberCestu()[0];
+        if (Kolize() && kolider=="tile")
+        {
+            dalsiKrok = Tile.vyberCestu()[2];
+
+        }
+        else if(!Kolize())
+        {
+            dalsiKrok = Tile.vyberCestu()[0];
+
+        }
+
+
+
 
         sledujCil(dalsiKrok.X, dalsiKrok.Y);
     }
 
     public bool KillPlayer()
     {
-        if (Entita.entitaList.Contains(this))
-        {
-            Kolize();
-        }
 
-        if (kolider == "player")
+
+        if (Entita.entitaList.Contains(this) && kolider == "player")
         {
             return true;
         }

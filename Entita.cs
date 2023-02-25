@@ -1,4 +1,7 @@
-﻿public class Entita : Form
+﻿
+using System.Diagnostics;
+
+public class Entita
 {
     public int x_pos { get; set; }
     public int y_pos { get; set; }
@@ -21,6 +24,7 @@
         this.width = width;
         this.height = height;
         entitaList.Add(this);
+
         if (username == "tile")
         {
             generatedTiles.Add(this.username);
@@ -56,19 +60,19 @@
                    && y_pos + height > ent2.y_pos)
                 {
 
-                    if (x_pos + width < ent2.x_pos + ent2.width)
+                    if (x_pos + width < ent2.x_pos)
                     {
                         direction = 1;
                     }
-                    if (x_pos + width > ent2.x_pos + ent2.width)
+                    if (x_pos  > ent2.x_pos + ent2.width)
                     {
                         direction = 2;
                     }
-                    if (y_pos + height < ent2.y_pos + height)
+                    if (y_pos + height < ent2.y_pos)
                     {
                         direction = 3;
                     }
-                    if (y_pos + height > ent2.y_pos + ent2.height)
+                    if (y_pos  > ent2.y_pos + ent2.height)
                     {
                         direction = 4;
                     }
@@ -76,9 +80,8 @@
                     return true;
 
                 }
-
             }
-        }
+        }       
         return false;
     }
 }

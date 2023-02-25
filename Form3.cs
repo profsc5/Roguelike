@@ -19,18 +19,12 @@ namespace nevim
 
         private void buttonRychlost_Click(object sender, EventArgs e)
         {
-
-
-
             int cena = 5;
             if (cena <= zetony)
             {
-
-
                 Form1.rychlost += 5;
                 zetony -= cena;
                 StreamWriter strW = new StreamWriter("skore.txt");
-
                 Debug.Write(zetony);
                 //Převod na jedničky, abychom snadněji odčítali žetony
                 for (int x = 0; x < zetony; x++)
@@ -38,10 +32,8 @@ namespace nevim
                     strW.Write(1);
                 }
                 strW.Close();
-
                 MessageBox.Show("Zvýšil sis rychlost o 5 bodů!");
                 nactiZetony();
-
             }
             else
             {
@@ -51,24 +43,20 @@ namespace nevim
 
         private void Form3_Load(object sender, EventArgs e)
         {
-
             nactiZetony();
-
-
         }
         void nactiZetony()
         {
+            zetony = 0;
             StreamReader strR = new StreamReader("skore.txt", Encoding.Default);
             while (strR.Peek() != -1)
             {
                 foreach (char ch in strR.ReadLine())
                 {
                     zetony += (int)Char.GetNumericValue(ch);
-
                 }
             }
             label1.Text = "Žetony: " + zetony.ToString();
-
             strR.Close();
         }
     }

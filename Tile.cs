@@ -10,8 +10,6 @@
         public int Vzdalenost { get; set; }
         public int Parametr => Krok + Vzdalenost;
         static public Tile[,] Tiles = new Tile[10, 10];
-
-
         static public List<Tile> fronta = new List<Tile>();
 
         public bool Kolize(Entita entita)
@@ -34,12 +32,12 @@
             int orthogonal = dx + dy - 2 * diagonal;
             return diagonal * 5 + orthogonal * 7;*/
 
-            /*int D = 1;
+            int D = 1;
             double D2 = Math.Sqrt(2);
             float dx = Math.Abs(X - cilX);
             float dy = Math.Abs(Y - cilY);
-            return Convert.ToInt32(D * (dx + dy) + (D2 - 2 * D) * Math.Min(dx, dy));*/
-            return Math.Abs(cilX - X) + Math.Abs(cilY - Y);
+            return Convert.ToInt32(D * (dx + dy) + (D2 - 2 * D) * Math.Min(dx, dy));
+           // return Math.Abs(cilX - X) + Math.Abs(cilY - Y);
         }
         public int vypocitejKrok(int zdrojX, int zdrojY)
         {
@@ -53,7 +51,7 @@
                 foreach (Tile tile in Tiles)
                 {
                     min = fronta[0].Parametr;
-
+                    
                     if (tile.Parametr > min || tile.aktivni || (tile.Kolize(Entita.FindEnt("chobotnicka")) && tile.aktivni))
                     {
                         fronta.Remove(tile);
@@ -67,18 +65,12 @@
 
             foreach (Tile t in Tiles)
             {
-
                 if (!t.aktivni)
                 {
                     fronta.Add(t);
                 }
-
             }
-
-
             return fronta;
         }
-
     }
-
 }

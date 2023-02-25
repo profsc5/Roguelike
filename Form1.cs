@@ -1,6 +1,3 @@
-using System.Diagnostics;
-using System.Security.Cryptography.Xml;
-
 namespace nevim
 {
     public partial class Form1 : Form
@@ -8,31 +5,18 @@ namespace nevim
         public static int skore, poskozeni, ulozeneSkore, rychlost = 10;
         int smer;
         bool collision = false;
-        bool buttonClick = false;
         bool killplayerBool = false;
         bool debugging;
 
-
         static Image enemy_textura = Properties.Resources.chobotnicka1;
         static Image e1_textura = Properties.Resources.e1;
-        static Image e2_textura = Properties.Resources.e2;
-        static Image domek_textura = Properties.Resources.dom;
-        static Image kostel_textura = Properties.Resources.kostel;
         static Image blok_textura = Properties.Resources.blok;
-
-
-        //Entita domecek = new Entita("domecek", domek_textura, 400, 400, 200, 180);
 
         //Inicializace hráèe na zaèátku hry
         public Entita e1 = new Entita("player", e1_textura, 500, 500, 60, 79);
 
-        //Inicializace každé entity- musí se zadávat postupnì, aby se dobøe pøekrývaly
-
-        /*Entita domek = new Entita("domecek1", domek_textura, new Random().Next(50, 850), new Random().Next(50, 700), 200, 180);
-        Entita kostel = new Entita("kostel1", kostel_textura, new Random().Next(50, 850), new Random().Next(50, 700), 300, 300);
-        Entita domek2 = new Entita("domecek2", domek_textura, new Random().Next(50, 850), new Random().Next(50, 700), 200, 180);*/
+        //Inicializace každé entity- musí se zadávat postupnì, aby se dobøe pøekrývaly     
         AI chobotnicka = new AI("chobotnicka", enemy_textura, 150, 150, 100, 100);
-        //Entita e2 = new Entita("e2", e2_textura, 300, 300, 80, 80);
 
         public Form1()
         {
@@ -41,8 +25,8 @@ namespace nevim
             DoubleBuffered = true;
             BackgroundImage = Properties.Resources.background;
             fillTiles();
+            GeneraceKosticek();
             GeneraceLokace();
-
         }
         //Rozdìlíme celou mapu na dílky
         private void fillTiles()
@@ -82,19 +66,13 @@ namespace nevim
             //
             if (debugging)
             {
-
                 foreach (Tile tile in Tile.Tiles)
                 {
-
                     graphics.DrawRectangle(Pens.Black, tile.X, tile.Y, 80, 80);
-
                     if (tile.aktivni)
                     {
                         graphics.FillRectangle(Brushes.Green, tile.X, tile.Y, 80, 80);
                     }
-
-
-
                     if (tile.vypocitejVzdalenost(e1.x_pos, e1.y_pos) > 300)
                     {
                         graphics.FillEllipse(Brushes.Blue, tile.X, tile.Y, 40, 40);
@@ -105,20 +83,17 @@ namespace nevim
                     }
                     if (Tile.fronta.Contains(tile))
                     {
-                        graphics.DrawString(tile.Krok.ToString(), Font, Brushes.Black, tile.X, tile.Y);
+                        graphics.DrawString(tile.Parametr.ToString(), Font, Brushes.Black, tile.X, tile.Y);
                     }
                     //graphics.DrawString(tile.Parametr.ToString(), Font, Brushes.Black, tile.X, tile.Y);
                 }
                 graphics.FillRectangle(Brushes.Brown, Tile.fronta[0].X, Tile.fronta[0].Y, 80, 80);
-
-
                 graphics.DrawLine(Pens.Red, new Point(chobotnicka.x_pos + chobotnicka.width / 2, chobotnicka.y_pos + chobotnicka.height / 2), new Point(e1.x_pos + e1.width / 2, e1.y_pos + e1.height / 2));
             }
         }
         private void GeneraceKosticek()
         {
             Random rand = new Random();
-
             foreach (Tile t in Tile.Tiles)
             {
                 if (rand.Next(0, 10) == 2)
@@ -126,31 +101,23 @@ namespace nevim
                     if (t.vypocitejVzdalenost(e1.x_pos, e1.y_pos) > 80 && t.vypocitejVzdalenost(chobotnicka.x_pos, chobotnicka.y_pos) > 80)
                     {
                         new Entita("tile", blok_textura, t.X, t.Y, 75, 75);
-
-
                         t.aktivni = true;
                     }
-
                 }
             }
         }
         private void GeneraceLokace()
         {
-            GeneraceKosticek();
             foreach (Entita ent in Entita.entitaList)
             {
-
                 if (ent.username == "tile")
                 {
                     Entita.generatedTiles.Add(ent.username);
-
                 }
             }
 
             if (PohybMapy())
             {
-
-
                 switch (smer)
                 {
                     case 1:
@@ -168,20 +135,21 @@ namespace nevim
                 }
                 foreach (Tile tile in Tile.Tiles)
                 {
-                    tile.aktivni = false;                
+                    tile.aktivni = false;
                 }
 
-                for(int x =0; x < Entita.entitaList.Count; x++) {
+                for (int x = 0; x < Entita.entitaList.Count; x++)
+                {
                     if (Entita.entitaList[x].username == "tile")
                     {
-                        
                         Entita.entitaList.RemoveAt(x);
-                        Debug.Write("deleting " + x);
                     }
                 }
+                GeneraceKosticek();
+
+
                 BackColor = Color.White;
                 BackgroundImage = Properties.Resources.background;
-                GeneraceKosticek();
                 chobotnicka = new AI("chobotnicka", enemy_textura, 50, 50, 100, 100);
 
 
@@ -193,7 +161,7 @@ namespace nevim
         //!! musí se ukládat pozice jednotlivých textur do array
         private bool PohybMapy()
         {
-            if (AI.pocetPriserek <1)
+            if (AI.pocetPriserek < 1)
             {
                 BackgroundImage = null;
                 BackColor = Color.White;
@@ -221,8 +189,6 @@ namespace nevim
 
                 }
                 return false;
-
-
             }
             else return false;
 
@@ -264,7 +230,6 @@ namespace nevim
                     break;
             }
 
-
             //
             //Restart
             if (e.KeyCode == Keys.R)
@@ -297,7 +262,7 @@ namespace nevim
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            chobotnicka.najdiCestu();
+  //          chobotnicka.najdiCestu();
 
             //Updates na stavy
             if (e1.Kolize())
@@ -331,24 +296,6 @@ namespace nevim
 
         }
 
-        //Vytváøení objektù pomocí kliknutí na canvas
-        private void button1_Click(object sender, EventArgs e)
-        {
-            buttonClick = true;
-        }
-
-        private void Form1_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (buttonClick)
-            {
-                new Entita("domek" + new Random().Next(0, 50), domek_textura, e.Location.X - 100, e.Location.Y - 90, 200, 180);
-            }
-            buttonClick = false;
-        }
-
-
-
-
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked)
@@ -365,12 +312,6 @@ namespace nevim
             skore++;
             label2.Text = "Skóré: " + skore.ToString();
         }
-        //
-
-
-
-
-
 
     }
 }
