@@ -1,7 +1,9 @@
-﻿public class Entita
+﻿using System.Numerics;
+
+public class Entita
 {
-    public int x_pos { get; set; }
-    public int y_pos { get; set; }
+    public int x_pos, y_pos;
+    public Vector2 position;
     public int width { get; set; }
     public int height { get; set; }
     public int Xdirection { get; set; }
@@ -22,6 +24,7 @@
         this.y_pos = y_pos;
         this.width = width;
         this.height = height;
+        position = new Vector2(x_pos + width / 2, y_pos + height / 2);
         entitaList.Add(this);
 
         if (username == "tile")

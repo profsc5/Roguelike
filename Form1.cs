@@ -95,6 +95,7 @@ namespace nevim
             {
                 graphics.FillEllipse(Brushes.Black, s.X, s.Y, 5, 5);
             }
+            graphics.DrawRectangle(Pens.Green, smerPohybu.X, smerPohybu.Y, 5, 5);
             //
             //DEBUGGING
             //
@@ -251,56 +252,39 @@ namespace nevim
 
         }
 
+
+
         //Kontrola vstupu
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            smerPohybu = new Vector2(e1.x_pos, e1.y_pos);
-            switch (e.KeyCode)
+            smerPohybu = Vector2.Zero;
+            smerPohybu = new Vector2(e1.x_pos + 30, e1.y_pos + 30);          
+            if (e.KeyCode == Keys.A  )
             {
-                case Keys.A:
-                    /*if (!e1.Kolize() || e1.Kolize() && e1.Xdirection != 1 && e1.Ydirection == 0)
-                    {
-                        if (AI.pocetPriserek < 1 || (AI.pocetPriserek > 0 && e1.x_pos > 0))
-                        {
-                            smerPohybu.X -= rychlost;
-                        }
-                    }*/
-                    smerPohybu.X -= rychlost;
+                if (AI.pocetPriserek < 1 || (AI.pocetPriserek > 0 && e1.y_pos < Height - e1.width))
+                { smerPohybu.X += rychlost; }
 
-                    break;
-                case Keys.D:
-                    /*if (!e1.Kolize() || e1.Kolize() && e1.Xdirection != -1 && e1.Ydirection == 0)
-                    {
-                        if (AI.pocetPriserek < 1 || (AI.pocetPriserek > 0 && e1.x_pos < Width - e1.width))
-                        {
-                            smerPohybu.X += rychlost;
-                        }
-
-                    }*/
-                    smerPohybu.X += rychlost;
-
-                    break;
-                case Keys.W:
-                    /* if (!e1.Kolize() || e1.Kolize() && e1.Ydirection != 1 && e1.Xdirection == 0)
-                     {
-                         if (AI.pocetPriserek < 1 || (AI.pocetPriserek > 0 && e1.y_pos > 0))
-                         {
-                             e1.y_pos -= rychlost;
-                         }
-                     }*/
-                    smerPohybu.Y += rychlost;
-                    break;
-                case Keys.S:
-                    /*if (!e1.Kolize() || e1.Kolize() && e1.Ydirection != -1 && e1.Xdirection == 0)
-                    {
-                        if (AI.pocetPriserek < 1 || (AI.pocetPriserek > 0 && e1.y_pos < Height - e1.width))
-                        {
-                            e1.y_pos += rychlost;
-                        }
-                    }*/
-                    smerPohybu.Y += rychlost;
-                    break;
             }
+            if (e.KeyCode == Keys.D)
+            {
+                if (AI.pocetPriserek < 1 || (AI.pocetPriserek > 0 && e1.y_pos < Height - e1.width))
+                { smerPohybu.X -= rychlost; }
+
+            }
+            if (e.KeyCode == Keys.S)
+            {
+                if (AI.pocetPriserek < 1 || (AI.pocetPriserek > 0 && e1.y_pos < Height - e1.width))
+                { smerPohybu.Y -= rychlost; }
+
+
+            }
+            if (e.KeyData == Keys.W)
+            {
+                if (AI.pocetPriserek < 1 || (AI.pocetPriserek > 0 && e1.y_pos < Height - e1.width))
+                { smerPohybu.Y += rychlost; }
+
+            }
+
             pohyb = true;
 
             //
@@ -351,9 +335,9 @@ namespace nevim
 
             if (pohyb)
             {
-                Vector2 uhel = Vector2.Normalize(new Vector2(smerPohybu.X - e1.x_pos, smerPohybu.Y - e1.y_pos));
-                e1.x_pos += (int)(uhel.X * 1.5);
-                e1.y_pos += (int)(uhel.Y * 1.5);
+                Vector2 uhel = Vector2.Normalize(new Vector2(e1.x_pos + 30 - smerPohybu.X, e1.y_pos + 30 - smerPohybu.Y));
+                e1.x_pos += (int)Math.Min(int.MaxValue, uhel.X * rychlost);
+                e1.y_pos += (int)Math.Min(int.MaxValue, uhel.Y * rychlost);
             }
 
             for (int x = 0; x < strela.strelaList.Count; x++)

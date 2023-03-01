@@ -21,7 +21,9 @@ namespace nevim
             strelaList.Add(this);
             strelaTimer.Interval = 10;
             strelaTimer.Tick += new EventHandler(strelaEvent);
+
             strelaTimer.Start();
+
         }
         public double spocitejVzdalenost(int hracX, int hracY, int mysX, int mysY)
         {
