@@ -1,13 +1,12 @@
-﻿
-using System.Diagnostics;
-
-public class Entita
+﻿public class Entita
 {
     public int x_pos { get; set; }
     public int y_pos { get; set; }
     public int width { get; set; }
     public int height { get; set; }
-    public int direction;
+    public int Xdirection { get; set; }
+    public int Ydirection { get; set; }
+
     public string username { get; set; }
     public string kolider;
     public Image textura;
@@ -31,11 +30,11 @@ public class Entita
         }
 
     }
+
     static public Entita FindEnt(string name)
     {
         foreach (Entita ent in entitaList)
         {
-
             if (ent.username == name)
             {
                 return ent;
@@ -47,9 +46,9 @@ public class Entita
         }
         return null;
     }
+
     public bool Kolize()
     {
-
         foreach (Entita ent2 in entitaList)
         {
             if (ent2.username != username)
@@ -59,30 +58,48 @@ public class Entita
                    && y_pos < ent2.y_pos + ent2.height
                    && y_pos + height > ent2.y_pos)
                 {
+                    if (x_pos < ent2.x_pos)
+                    {
+                        Xdirection = -1;
+                        if (y_pos < (ent2.y_pos + ent2.height) && y_pos > ent2.y_pos)
+                        {
+                            Ydirection = 0;
+                        }
+                    }
+                    else if (x_pos > ent2.x_pos)
+                    {
+                        Xdirection = 1;
+                        if (y_pos < (ent2.y_pos + ent2.height) && y_pos > ent2.y_pos)
+                        {
+                            Ydirection = 0;
+                        }
+                    }
+                    else if (y_pos < ent2.y_pos)
+                    {
 
-                    if (x_pos + width < ent2.x_pos)
-                    {
-                        direction = 1;
+                        Ydirection = -1;
+                        if (x_pos < (ent2.x_pos + ent2.width) && x_pos > ent2.x_pos)
+                        {
+                            Xdirection = 0;
+                        }
                     }
-                    if (x_pos  > ent2.x_pos + ent2.width)
+                    else if (y_pos > ent2.y_pos)
                     {
-                        direction = 2;
-                    }
-                    if (y_pos + height < ent2.y_pos)
-                    {
-                        direction = 3;
-                    }
-                    if (y_pos  > ent2.y_pos + ent2.height)
-                    {
-                        direction = 4;
+
+                        Ydirection = 1;
+                        if (x_pos < (ent2.x_pos + ent2.width) && x_pos > ent2.x_pos)
+                        {
+                            Xdirection = 0;
+                        }
                     }
                     kolider = ent2.username;
                     return true;
 
                 }
             }
-        }       
+        }
         return false;
     }
+
 }
 

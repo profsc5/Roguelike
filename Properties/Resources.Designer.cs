@@ -63,6 +63,16 @@ namespace nevim.Properties {
         /// <summary>
         ///   Vyhledává lokalizovaný prostředek typu System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _2 {
+            get {
+                object obj = ResourceManager.GetObject("2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Vyhledává lokalizovaný prostředek typu System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap back1 {
             get {
                 object obj = ResourceManager.GetObject("back1", resourceCulture);
@@ -113,6 +123,46 @@ namespace nevim.Properties {
         /// <summary>
         ///   Vyhledává lokalizovaný prostředek typu System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bubak1 {
+            get {
+                object obj = ResourceManager.GetObject("bubak1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Vyhledává lokalizovaný prostředek typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bubak2 {
+            get {
+                object obj = ResourceManager.GetObject("bubak2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Vyhledává lokalizovaný prostředek typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bubak3 {
+            get {
+                object obj = ResourceManager.GetObject("bubak3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Vyhledává lokalizovaný prostředek typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bubak4 {
+            get {
+                object obj = ResourceManager.GetObject("bubak4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Vyhledává lokalizovaný prostředek typu System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap chobotnicka1 {
             get {
                 object obj = ResourceManager.GetObject("chobotnicka1", resourceCulture);
@@ -143,9 +193,9 @@ namespace nevim.Properties {
         /// <summary>
         ///   Vyhledává lokalizovaný prostředek typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap e1 {
+        internal static System.Drawing.Bitmap e2 {
             get {
-                object obj = ResourceManager.GetObject("e1", resourceCulture);
+                object obj = ResourceManager.GetObject("e2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -153,9 +203,9 @@ namespace nevim.Properties {
         /// <summary>
         ///   Vyhledává lokalizovaný prostředek typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap e2 {
+        internal static System.Drawing.Bitmap hrac {
             get {
-                object obj = ResourceManager.GetObject("e2", resourceCulture);
+                object obj = ResourceManager.GetObject("hrac", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -176,16 +226,6 @@ namespace nevim.Properties {
         internal static System.Drawing.Bitmap konec {
             get {
                 object obj = ResourceManager.GetObject("konec", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Vyhledává lokalizovaný prostředek typu System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap kostel {
-            get {
-                object obj = ResourceManager.GetObject("kostel", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -226,6 +266,16 @@ namespace nevim.Properties {
         internal static System.Drawing.Bitmap obchod_nadpis {
             get {
                 object obj = ResourceManager.GetObject("obchod_nadpis", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Vyhledává lokalizovaný prostředek typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pozadi {
+            get {
+                object obj = ResourceManager.GetObject("pozadi", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
