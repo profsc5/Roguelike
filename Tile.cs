@@ -11,6 +11,7 @@
         public int Vzdalenost { get; set; }
         public int Parametr => Krok + Vzdalenost;
         static public Tile[,] Tiles = new Tile[15, 15];
+        static public List<Tile> walkedTiles = new List<Tile>();
 
 
         public Tile(int width)
@@ -25,6 +26,7 @@
               && Y < entita.y_pos + entita.height
               && Y + width > entita.y_pos)
             {
+                string kolider = entita.username;
                 return true;
             }
             return false;
@@ -45,9 +47,16 @@
             {
                 foreach (Tile tile in Tiles)
                 {
+                    foreach (Entita ai in Entita.entitaList)
+                    {
+                        if (ai.username == "chobotnicka" && tile.Kolize(ai))
+                        {
+                            walkedTiles.Add(tile);
+                        }                
+                    }
                     min = fronta[0].Parametr;
 
-                    if (tile.Parametr > min || tile.aktivni)
+                    if (tile.Parametr > min || tile.aktivni || walkedTiles.Contains(tile))
                     {
                         fronta.Remove(tile);
                     }
@@ -64,6 +73,7 @@
                 {
                     fronta.Add(tile);
                 }
+
             }
             return fronta;
         }

@@ -3,6 +3,7 @@
 public class AI : Entita
 {
     public int hracX, hracWidth, hracY, hracHeight, distance;
+    public int Krok;
     public Tile dalsiKrok;
     static public int pocetPriserek = 0;
 
@@ -46,28 +47,21 @@ public class AI : Entita
     {
         if (vsechnyPriserky.Count > 0)
         {
-
-            foreach (Tile t in Tile.Tiles)
-            {
-                t.Vzdalenost = t.vypocitejVzdalenost(FindEnt("player").x_pos, FindEnt("player").y_pos);
-                t.Krok = t.vypocitejKrok(x_pos, y_pos);
-            }
-
-
             if (x_pos + (width / 2) == dalsiKrok.X + 30 && y_pos + (height / 2) == dalsiKrok.Y + 30)
             {
-
                 dalsiKrok = Tile.vyberCestu(fronta)[0];
+
+                for (int x = 0; x < Tile.walkedTiles.Count; x++)
+                {
+                    if (Tile.walkedTiles[x].vypocitejVzdalenost(x_pos, y_pos)>120)
+                    {
+                        Tile.walkedTiles.Remove(Tile.walkedTiles[x]);
+                    }
+
+                }
             }
-
             sledujCil(dalsiKrok.X, dalsiKrok.Y);
-
-
         }
-
-
-
-
     }
     public bool KillPlayer()
     {

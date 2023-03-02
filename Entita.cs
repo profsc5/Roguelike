@@ -9,7 +9,7 @@ public class Entita
     public int Xdirection { get; set; }
     public int Ydirection { get; set; }
     public bool aktivni;
-    public int zivoty;
+    public double zivoty;
     public string username { get; set; }
     public string kolider;
     public Image textura;
@@ -96,23 +96,23 @@ public class Entita
                     int rozdilY = height / 2 - (int)rozdilovyVektor.Y;
                     if (x_pos < ent2.x_pos)
                     {
-                        //x_pos -= Math.Abs(x_pos - ent2.x_pos);
-                        x_pos -= rozdilX;
+                        x_pos -= x_pos - ent2.x_pos;
+                        //x_pos -= rozdilX;
                     }
                     else if (x_pos > ent2.x_pos)
                     {
-                        //x_pos += Math.Abs(x_pos - (ent2.x_pos + width));
-                        x_pos += rozdilX;
+                        x_pos += Math.Abs(x_pos - (ent2.x_pos + width));
+                        //x_pos += rozdilX;
                     }
                     if (y_pos < ent2.y_pos)
                     {
-                        y_pos -= rozdilY;
-                        //y_pos -= Math.Abs(y_pos - ent2.y_pos);
+                        //y_pos -= rozdilY;
+                        y_pos -= y_pos - ent2.y_pos;
                     }
                     else if (y_pos > ent2.y_pos)
                     {
-                        y_pos += rozdilY;
-                        //y_pos += Math.Abs(y_pos - (ent2.y_pos+height));
+                        //y_pos += rozdilY;
+                        y_pos += Math.Abs(y_pos - (ent2.y_pos + height));
                     }
                     kolider = ent2.username;
                     return true;

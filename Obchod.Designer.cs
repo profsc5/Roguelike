@@ -35,14 +35,18 @@
             this.label1 = new System.Windows.Forms.Label();
             this.buttonObtiznost = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonPoskozeni
             // 
             this.buttonPoskozeni.BackColor = System.Drawing.Color.Transparent;
             this.buttonPoskozeni.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonPoskozeni.BackgroundImage")));
+            this.buttonPoskozeni.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.buttonPoskozeni.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonPoskozeni.Image = ((System.Drawing.Image)(resources.GetObject("buttonPoskozeni.Image")));
-            this.buttonPoskozeni.Location = new System.Drawing.Point(34, 198);
+            this.buttonPoskozeni.Location = new System.Drawing.Point(33, 198);
             this.buttonPoskozeni.Margin = new System.Windows.Forms.Padding(0);
             this.buttonPoskozeni.Name = "buttonPoskozeni";
             this.buttonPoskozeni.Size = new System.Drawing.Size(165, 81);
@@ -52,6 +56,8 @@
             // 
             // buttonRychlost
             // 
+            this.buttonRychlost.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.buttonRychlost.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRychlost.Image = ((System.Drawing.Image)(resources.GetObject("buttonRychlost.Image")));
             this.buttonRychlost.Location = new System.Drawing.Point(163, 349);
             this.buttonRychlost.Margin = new System.Windows.Forms.Padding(0);
@@ -64,14 +70,19 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(223, 166);
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(19)))), ((int)(((byte)(47)))));
+            this.label1.Font = new System.Drawing.Font("Niagara Solid", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(276, 150);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 15);
+            this.label1.Size = new System.Drawing.Size(0, 23);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Skóré: ";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // buttonObtiznost
             // 
+            this.buttonObtiznost.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.buttonObtiznost.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonObtiznost.Image = global::nevim.Properties.Resources.obtiznost;
             this.buttonObtiznost.Location = new System.Drawing.Point(298, 198);
             this.buttonObtiznost.Margin = new System.Windows.Forms.Padding(0);
@@ -83,25 +94,37 @@
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 250;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // Form3
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(189, 132);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(124, 63);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
+            // 
+            // Obchod
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(484, 461);
-            this.Controls.Add(this.buttonObtiznost);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.buttonObtiznost);
             this.Controls.Add(this.buttonRychlost);
             this.Controls.Add(this.buttonPoskozeni);
             this.DoubleBuffered = true;
-            this.Name = "Form3";
+            this.Name = "Obchod";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Roguelike - obchod";
             this.Load += new System.EventHandler(this.Form3_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form3_Paint);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -114,5 +137,6 @@
         private Label label1;
         private Button buttonObtiznost;
         private System.Windows.Forms.Timer timer1;
+        private PictureBox pictureBox1;
     }
 }

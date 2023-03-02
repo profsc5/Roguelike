@@ -5,7 +5,8 @@ namespace nevim
 {
     public partial class Roguelike : Form
     {
-        public static int skore, poskozeni = 1, ulozeneSkore, rychlost = 10, udavatelObtiznosti = 0;
+        public static int skore, ulozeneSkore, rychlost = 10, udavatelObtiznosti = 0;
+        public static double poskozeni = 1;
         int smer;
         static public Vector2 smerPohybu;
         bool killplayerBool = false;
@@ -28,6 +29,7 @@ namespace nevim
 
         //Inicializace každé entity- musí se zadávat postupnì, aby se dobøe pøekrývaly     
         AI chobotnicka = new AI("chobotnicka", bubak_textura1, 150, 150, 60, 60);
+
 
         public Roguelike()
         {
@@ -68,7 +70,8 @@ namespace nevim
             int Y = rand.Next(10, 700);
             Image textura = Entita.vyberTexturu(bubak_textura1, bubak_texutra2, bubak_textura3, bubak_textura4);
 
-            new AI("chobotnicka", textura, X, Y, 60, 60);
+            AI priserka = new AI("chobotnicka", textura, X, Y, 60, 60);
+            priserka.zivoty += udavatelObtiznosti;
 
 
         }
@@ -158,14 +161,6 @@ namespace nevim
 
         private void GeneraceLokace()
         {
-            foreach (Entita ent in Entita.entitaList)
-            {
-                if (ent.username == "tile")
-                {
-                    Entita.generatedTiles.Add(ent.username);
-                }
-            }
-
             if (PohybMapy())
             {
                 switch (smer)
@@ -202,7 +197,6 @@ namespace nevim
                 {
                     spawnBubaku();
                 }
-                //BackColor = Color.FromArgb(udavatelObtiznosti *2, 0, 0);
                 GeneraceKosticek();
             }
         }
@@ -211,6 +205,7 @@ namespace nevim
             Random rand = new Random();
             float multiplikator = rand.Next(0, 11);
             return Convert.ToInt32(Math.Ceiling(udavatelObtiznosti * (multiplikator / 10 + 1)));
+
         }
 
         //Pøesuneme panáèka pokaždé, když je na kraji mapy
@@ -319,8 +314,14 @@ namespace nevim
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+
             foreach (AI en in AI.vsechnyPriserky)
             {
+                foreach (Tile t in Tile.Tiles)
+                {
+                    t.Vzdalenost = t.vypocitejVzdalenost(Entita.FindEnt("player").x_pos, Entita.FindEnt("player").y_pos);
+                    t.Krok = t.vypocitejKrok(en.x_pos, en.y_pos);
+                }
                 en.najdiCestu();
 
                 if (en.KillPlayer())
@@ -331,6 +332,7 @@ namespace nevim
                     smrt();
                 }
             }
+
 
             if (pohyb)
             {
@@ -385,7 +387,6 @@ namespace nevim
                 Entita.entitaList.Remove(priserka);
                 for (int x = 0; x < AI.vsechnyPriserky.Count(); x++)
                 {
-
                     if (AI.vsechnyPriserky[x].x_pos == priserka.x_pos && AI.vsechnyPriserky[x].y_pos == priserka.y_pos)
                     {
                         AI.vsechnyPriserky.Remove(AI.vsechnyPriserky[x]);

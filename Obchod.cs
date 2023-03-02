@@ -5,7 +5,7 @@ namespace nevim
 {
     public partial class Obchod : Form
     {
-        int zetony, texturaCislo=0;
+        int zetony, texturaCislo = 0;
         public Obchod()
         {
             InitializeComponent();
@@ -18,20 +18,12 @@ namespace nevim
 
         private void buttonRychlost_Click(object sender, EventArgs e)
         {
-            int cena = 30;
+            int cena = 20;
             if (cena <= zetony)
             {
                 Roguelike.rychlost += 5;
-                zetony -= cena;
-                StreamWriter strW = new StreamWriter("skore.txt");
-                Debug.Write(zetony);
-                //Převod na jedničky, abychom snadněji odčítali žetony
-                for (int x = 0; x < zetony; x++)
-                {
-                    strW.Write(1);
-                }
-                strW.Close();
-                MessageBox.Show("Zvýšil sis rychlost o 5 bodů!");
+                odectiZetony(cena);
+                MessageBox.Show("Zvýšil/a sis rychlost o 5 bodů!");
                 nactiZetony();
             }
             else
@@ -55,7 +47,7 @@ namespace nevim
                     zetony += (int)Char.GetNumericValue(ch);
                 }
             }
-            label1.Text = "Žetony: " + zetony.ToString();
+            label1.Text = zetony.ToString();
             strR.Close();
         }
 
@@ -64,17 +56,9 @@ namespace nevim
             int cena = 30;
             if (cena <= zetony)
             {
-                Roguelike.poskozeni += 1;
-                zetony -= cena;
-                StreamWriter strW = new StreamWriter("skore.txt");
-                Debug.Write(zetony);
-                //Převod na jedničky, abychom snadněji odčítali žetony
-                for (int x = 0; x < zetony; x++)
-                {
-                    strW.Write(1);
-                }
-                strW.Close();
-                MessageBox.Show("Zvýšil sis rychlost o 5 bodů!");
+                Roguelike.poskozeni += 0.25;
+                odectiZetony(cena);
+                MessageBox.Show("Zvýšil/a sis poškození o 5 bodů!");
                 nactiZetony();
             }
             else
@@ -82,14 +66,26 @@ namespace nevim
                 MessageBox.Show("Nemáš dostatek žetonů!");
             }
         }
+        private void odectiZetony(int cena)
+        {
 
+            zetony -= cena;
+            StreamWriter strW = new StreamWriter("skore.txt");
+            Debug.Write(zetony);
+            //Převod na jedničky, abychom snadněji odčítali žetony
+            for (int x = 0; x < zetony; x++)
+            {
+                strW.Write(1);
+            }
+            strW.Close();
+        }
         private void timer1_Tick(object sender, EventArgs e)
         {
             texturaCislo++;
             Image textura = null;
             switch (texturaCislo)
             {
-               
+
                 case 1:
                     textura = Properties.Resources.obchod2;
                     break;
