@@ -1,13 +1,13 @@
 ﻿namespace nevim
 {
-    public partial class Form2 : Form
+    public partial class Menu : Form
     {
 
         Image pozadi1 = Properties.Resources.back1;
         Image pozadi2 = Properties.Resources.back2;
         Image pozadi3 = Properties.Resources.back3;
         int n = 0;
-        public Form2()
+        public Menu()
         {
 
             InitializeComponent();
@@ -17,7 +17,7 @@
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form1 fr = new Form1();
+            Roguelike fr = new Roguelike();
             Hide();
             fr.ShowDialog();
             Close();
@@ -65,7 +65,7 @@
 
         private void button3_Click_1(object sender, EventArgs e)
         {
-            Form3 f = new Form3();
+            Obchod f = new Obchod();
             f.ShowDialog();
         }
     }

@@ -5,7 +5,7 @@ namespace nevim
 {
     class strela
     {
-        public int cilX, cilY, zdrojX, zdrojY, X, Y;
+        public int cilX, cilY, zdrojX, zdrojY, X, Y, pocetVystrelu;
         public Entita kolider = null;
         public int rychlost = 20;
         public static List<strela> strelaList = new List<strela>();
@@ -18,10 +18,10 @@ namespace nevim
             zdrojY = Y;
             this.cilX = cilX;
             this.cilY = cilY;
+            pocetVystrelu++;
             strelaList.Add(this);
             strelaTimer.Interval = 10;
             strelaTimer.Tick += new EventHandler(strelaEvent);
-
             strelaTimer.Start();
 
         }
@@ -29,6 +29,7 @@ namespace nevim
         {
             return Math.Abs(mysX - hracX) + Math.Abs(mysY - hracY);
         }
+
         public void strelaEvent(object sender, EventArgs e)
         {
             if (strelaTimer.Enabled)

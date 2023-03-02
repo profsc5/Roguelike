@@ -8,7 +8,8 @@ public class Entita
     public int height { get; set; }
     public int Xdirection { get; set; }
     public int Ydirection { get; set; }
-
+    public bool aktivni;
+    public int zivoty;
     public string username { get; set; }
     public string kolider;
     public Image textura;
@@ -25,13 +26,39 @@ public class Entita
         this.width = width;
         this.height = height;
         position = new Vector2(x_pos + width / 2, y_pos + height / 2);
+
         entitaList.Add(this);
 
         if (username == "tile")
         {
             generatedTiles.Add(this.username);
         }
+        if (username == "chobotnicka")
+        {
+            zivoty = 5;
+        }
 
+    }
+    static public Image vyberTexturu(Image img1, Image img2, Image img3, Image img4)
+    {
+        Random rand = new Random();
+        Image textura = null;
+        switch (rand.Next(0, 4))
+        {
+            case 0:
+                textura = img1;
+                break;
+            case 1:
+                textura = img2;
+                break;
+            case 2:
+                textura = img3;
+                break;
+            case 3:
+                textura = img4;
+                break;
+        }
+        return textura;
     }
 
     static public Entita FindEnt(string name)
@@ -61,39 +88,31 @@ public class Entita
                    && y_pos < ent2.y_pos + ent2.height
                    && y_pos + height > ent2.y_pos)
                 {
+                    Vector2 rozdilovyVektor = new Vector2((x_pos + width / 2) - (ent2.x_pos + ent2.width / 2), (y_pos + height / 2) - (ent2.y_pos + ent2.height / 2));
+                    Vector2.Normalize(rozdilovyVektor);
+                    /*Vector2 posun = Vector2.Subtract(rozdilovyVektor, -Form1.smerPohybu);
+                    Form1.smerPohybu -= posun; */
+                    int rozdilX = width / 2 - (int)rozdilovyVektor.X;
+                    int rozdilY = height / 2 - (int)rozdilovyVektor.Y;
                     if (x_pos < ent2.x_pos)
                     {
-                        Xdirection = -1;
-                        if (y_pos < (ent2.y_pos + ent2.height) && y_pos > ent2.y_pos)
-                        {
-                            Ydirection = 0;
-                        }
+                        //x_pos -= Math.Abs(x_pos - ent2.x_pos);
+                        x_pos -= rozdilX;
                     }
                     else if (x_pos > ent2.x_pos)
                     {
-                        Xdirection = 1;
-                        if (y_pos < (ent2.y_pos + ent2.height) && y_pos > ent2.y_pos)
-                        {
-                            Ydirection = 0;
-                        }
+                        //x_pos += Math.Abs(x_pos - (ent2.x_pos + width));
+                        x_pos += rozdilX;
                     }
-                    else if (y_pos < ent2.y_pos)
+                    if (y_pos < ent2.y_pos)
                     {
-
-                        Ydirection = -1;
-                        if (x_pos < (ent2.x_pos + ent2.width) && x_pos > ent2.x_pos)
-                        {
-                            Xdirection = 0;
-                        }
+                        y_pos -= rozdilY;
+                        //y_pos -= Math.Abs(y_pos - ent2.y_pos);
                     }
                     else if (y_pos > ent2.y_pos)
                     {
-
-                        Ydirection = 1;
-                        if (x_pos < (ent2.x_pos + ent2.width) && x_pos > ent2.x_pos)
-                        {
-                            Xdirection = 0;
-                        }
+                        y_pos += rozdilY;
+                        //y_pos += Math.Abs(y_pos - (ent2.y_pos+height));
                     }
                     kolider = ent2.username;
                     return true;
