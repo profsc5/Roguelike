@@ -2,6 +2,7 @@
 {
     public class Tile
     {
+        public int multiplikator;
         public bool aktivni;
         public bool selfTile = false;
         public int X { get; set; }
@@ -9,14 +10,16 @@
         public int width;
         public int Krok { get; set; }
         public int Vzdalenost { get; set; }
-        public int Parametr => Krok + Vzdalenost;
-        static public Tile[,] Tiles = new Tile[15, 15];
-        static public List<Tile> walkedTiles = new List<Tile>();
+        public int Parametr;
+        public Tile parent;
+        static public List<Tile> Tiles = new List<Tile>();
 
 
         public Tile(int width)
         {
             this.width = width;
+            Tiles.Add(this);
+
         }
         public bool Kolize(Entita entita)
         {
@@ -33,13 +36,57 @@
         }
         public int vypocitejVzdalenost(int cilX, int cilY)
         {
-            return Math.Abs(cilX - X) + Math.Abs(cilY - Y);
+            return Math.Abs(X - cilX) + Math.Abs(Y - cilY);
         }
         public int vypocitejKrok(int zdrojX, int zdrojY)
         {
-            return vypocitejVzdalenost(zdrojX, zdrojY) / width;
+            /*multiplikator = 0;
+            if (X != zdrojX && zdrojY != Y)
+            {
+                multiplikator = 0;
+
+            }*/
+            return vypocitejVzdalenost(zdrojX, zdrojY) /width;
         }
-        static public List<Tile> vyberCestu(List<Tile> fronta)
+        /* static public List<Tile> vyberCestu(List<Tile> fronta)
+         {
+             int min;
+
+             if (fronta.Count > 0)
+             {
+                 foreach (Tile tile in Tiles)
+                 {
+                     foreach (Entita ai in Entita.entitaList)
+                     {
+                         if (ai.username == "chobotnicka" && tile.Kolize(ai))
+                         {
+                             walkedTiles.Add(tile);
+                         }                
+                     }
+                     min = fronta[0].Parametr;
+
+                     if (tile.Parametr > min || tile.aktivni || walkedTiles.Contains(tile))
+                     {
+                         fronta.Remove(tile);
+                     }
+                     else if (tile.Parametr < min && tile.Krok < 2)
+                     {
+                         fronta[0] = tile;
+                     }
+                 }
+             }
+
+             foreach (Tile tile in Tiles)
+             {
+                 if (!tile.aktivni && tile.Krok < 3)
+                 {
+                     fronta.Add(tile);
+                 }
+
+             }
+             return fronta;
+         }*/
+        /*public List<Tile> vyberCestu(List<Tile> fronta)
         {
             int min;
 
@@ -52,7 +99,7 @@
                         if (ai.username == "chobotnicka" && tile.Kolize(ai))
                         {
                             walkedTiles.Add(tile);
-                        }                
+                        }
                     }
                     min = fronta[0].Parametr;
 
@@ -76,6 +123,6 @@
 
             }
             return fronta;
-        }
+        }*/
     }
 }

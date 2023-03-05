@@ -1,9 +1,11 @@
-﻿using System.Numerics;
+﻿using System.Diagnostics;
+using System.Numerics;
 
 public class Entita
 {
     public int x_pos, y_pos;
     public Vector2 position;
+    public Vector2 smerPohybu;
     public int width { get; set; }
     public int height { get; set; }
     public int Xdirection { get; set; }
@@ -76,11 +78,62 @@ public class Entita
         }
         return null;
     }
+    public void kolizeRezoluceX(Entita ent1, Entita ent2)
+    {
+        if (y_pos < ent2.y_pos) y_pos = ent2.y_pos - height;
+
+        if (y_pos + height > ent2.y_pos + ent2.height) y_pos = ent2.y_pos + ent2.height;
+
+
+        kolider = ent2.username;
+        Debug.WriteLine("Kolize");
+
+    }
+    public void kolizeRezoluceY(Entita ent1, Entita ent2)
+    {
+        if (x_pos < ent2.x_pos) x_pos = ent2.x_pos - width;
+
+        if (x_pos + width > ent2.x_pos + ent2.width) x_pos = ent2.x_pos + ent2.width;
+    }
+    public bool colliding(int x_pos, int y_pos, Entita ent2)
+    {
+
+        if (ent2.username != username)
+        {
+            if (x_pos < ent2.width + ent2.x_pos
+               && x_pos + width > ent2.x_pos
+               && y_pos < ent2.y_pos + ent2.height
+               && y_pos + height > ent2.y_pos)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public bool Kolize()
     {
+
         foreach (Entita ent2 in entitaList)
         {
+            //if (colliding(this, ent2)) { }
+            /*if (colliding(this, ent2))
+            {
+                kolizeRezoluceX(this, ent2);
+
+            }
+            if (colliding(this, ent2))
+            {
+                kolizeRezoluceY(this, ent2);
+            }*/
+
+
+
+
+
+
+
             if (ent2.username != username)
             {
                 if (x_pos < ent2.width + ent2.x_pos
@@ -88,32 +141,17 @@ public class Entita
                    && y_pos < ent2.y_pos + ent2.height
                    && y_pos + height > ent2.y_pos)
                 {
-                    Vector2 rozdilovyVektor = new Vector2((x_pos + width / 2) - (ent2.x_pos + ent2.width / 2), (y_pos + height / 2) - (ent2.y_pos + ent2.height / 2));
-                    Vector2.Normalize(rozdilovyVektor);
-                    /*Vector2 posun = Vector2.Subtract(rozdilovyVektor, -Form1.smerPohybu);
-                    Form1.smerPohybu -= posun; */
-                    int rozdilX = width / 2 - (int)rozdilovyVektor.X;
-                    int rozdilY = height / 2 - (int)rozdilovyVektor.Y;
-                    if (x_pos < ent2.x_pos)
-                    {
-                        x_pos -= x_pos - ent2.x_pos;
-                        //x_pos -= rozdilX;
-                    }
-                    else if (x_pos > ent2.x_pos)
-                    {
-                        x_pos += Math.Abs(x_pos - (ent2.x_pos + width));
-                        //x_pos += rozdilX;
-                    }
-                    if (y_pos < ent2.y_pos)
-                    {
-                        //y_pos -= rozdilY;
-                        y_pos -= y_pos - ent2.y_pos;
-                    }
-                    else if (y_pos > ent2.y_pos)
-                    {
-                        //y_pos += rozdilY;
-                        y_pos += Math.Abs(y_pos - (ent2.y_pos + height));
-                    }
+
+                    /*Vector2 rozdilovyVektor = new Vector2((x_pos + width / 2) - (ent2.x_pos + ent2.width / 2), (y_pos + height / 2) - (ent2.y_pos + ent2.height / 2));
+                   
+                    Vector2 posun =Vector2.Normalize(Vector2.Subtract(-rozdilovyVektor, -smerPohybu));
+                    smerPohybu.X += posun.X*15;
+                    smerPohybu.Y+=posun.Y*15;*/
+                    /* x_pos +=(int)posun.X*15;
+                     y_pos += (int)posun.Y*15;*/
+
+
+
                     kolider = ent2.username;
                     return true;
 
@@ -122,6 +160,10 @@ public class Entita
         }
         return false;
     }
+
+
+
+
 
 }
 

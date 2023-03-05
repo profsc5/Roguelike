@@ -74,6 +74,8 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox1.Location = new System.Drawing.Point(12, 12);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(84, 19);
@@ -94,7 +96,7 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "0";
             // 
-            // Form1
+            // Roguelike
             // 
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
@@ -103,7 +105,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.checkBox1);
             this.DoubleBuffered = true;
-            this.Name = "Form1";
+            this.Name = "Roguelike";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Roguelike - hra";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
