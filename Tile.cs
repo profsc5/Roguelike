@@ -43,6 +43,6 @@
 
             return vypocitejVzdalenost(zdrojX, zdrojY) / width;
         }
-   
+
     }
 }

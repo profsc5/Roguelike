@@ -138,6 +138,7 @@ namespace nevim
                     }
                     foreach (Tile tile in ai.AITiles)
                     {
+                        graphics.DrawRectangle(Pens.Orange, tile.X, tile.Y, tile.width, tile.width);
                         graphics.DrawString(tile.Krok.ToString(), Font, Brushes.Black, tile.X, tile.Y);
                         graphics.DrawString(tile.Parametr.ToString(), Font, Brushes.Black, tile.X, tile.Y + 40);//Krok kazdeho dilku
                     }
@@ -171,7 +172,7 @@ namespace nevim
                 }
                 if (rand.Next(0, 10) == 2)
                 {
-                    // if (t.vypocitejVzdalenost(e1.x_pos, e1.y_pos) > 120 && vzdalenost > 120)
+                    //if (t.vypocitejVzdalenost(e1.x_pos, e1.y_pos) >60&& vzdalenost > 60)
                     {
                         if (t.X > 40 && t.Y > 40 && t.X < 600 && t.Y < 600)
                         {
@@ -342,25 +343,32 @@ namespace nevim
         {
             foreach (AI en in AI.vsechnyPriserky)
             {
-                Tile staryKrok = en.uzavrenyList[0];
+
+                Tile staryKrok = en.uzavrenyList.First();
                 int staryKrokX = staryKrok.X;
                 int staryKrokY = staryKrok.Y;
-                
-                en.AITiles.Clear();
-                en.uzavrenyList.Clear();
+
+                for (int x = 0; x < en.uzavrenyList.Count; x++)
+                {
+                    en.uzavrenyList.RemoveAt(x);
+                }
+                for (int x = 0; x < en.AITiles.Count; x++)
+                {
+                    en.AITiles.RemoveAt(x);
+
+                }
+
                 en.startKrok.X = staryKrokX;
-                en.startKrok.Y =staryKrokY;
+                en.startKrok.Y = staryKrokY;
+
                 Debug.WriteLine(Tile.Tiles.Count);
             }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-
-
             foreach (AI en in AI.vsechnyPriserky)
             {
-
                 for (int x = 0; x < en.uzavrenyList.Count; x++)
                 {
                     if (en.uzavrenyList[x].X == en.x_pos && en.uzavrenyList[x].Y == en.y_pos)
@@ -372,8 +380,11 @@ namespace nevim
                 { en.vyberCestu(); }
 
 
+                if (en.uzavrenyList.Count > 0)
+                {
+                    en.najdiCestu();
+                }
 
-                en.najdiCestu();
 
                 if (en.Kolize() && en.kolider == "player")
                 {

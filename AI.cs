@@ -61,7 +61,6 @@ public class AI : Entita
     public void vyberCestu()
     {
         int min = 0;
-        int minKrok = 0;
 
         zkontrolujVedlejsi(startKrok.X, startKrok.Y);
         foreach (Tile t in AITiles)
@@ -82,9 +81,12 @@ public class AI : Entita
             }
             uzavrenyList.Add(AITiles[0]);
             AITiles.RemoveAt(0);
-            startKrok = uzavrenyList.Last();
+            if (uzavrenyList.Count > 0)
+            {
+                startKrok = uzavrenyList.Last();
+            }
         }
-        
+
 
     }
 

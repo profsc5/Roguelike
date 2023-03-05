@@ -118,16 +118,16 @@ public class Entita
         foreach (Entita ent2 in entitaList)
         {
             //if (colliding(this, ent2)) { }
-            /*if (colliding(this, ent2))
+            /*if (colliding(x_pos,y_pos, ent2))
             {
                 kolizeRezoluceX(this, ent2);
 
             }
-            if (colliding(this, ent2))
+            if (colliding(x_pos,y_pos, ent2))
             {
                 kolizeRezoluceY(this, ent2);
-            }*/
-
+            }
+            */
 
 
 
@@ -141,22 +141,23 @@ public class Entita
                    && y_pos < ent2.y_pos + ent2.height
                    && y_pos + height > ent2.y_pos)
                 {
-
-                    /*Vector2 rozdilovyVektor = new Vector2((x_pos + width / 2) - (ent2.x_pos + ent2.width / 2), (y_pos + height / 2) - (ent2.y_pos + ent2.height / 2));
-                   
-                    Vector2 posun =Vector2.Normalize(Vector2.Subtract(-rozdilovyVektor, -smerPohybu));
-                    smerPohybu.X += posun.X*15;
-                    smerPohybu.Y+=posun.Y*15;*/
-                    /* x_pos +=(int)posun.X*15;
-                     y_pos += (int)posun.Y*15;*/
-
-
-
                     kolider = ent2.username;
                     return true;
-
                 }
             }
+            /*Vector2 rozdilovyVektor = new Vector2((x_pos + width / 2) - (ent2.x_pos + ent2.width / 2), (y_pos + height / 2) - (ent2.y_pos + ent2.height / 2));
+
+            Vector2 posun =Vector2.Normalize(Vector2.Subtract(-rozdilovyVektor, -smerPohybu));
+            smerPohybu.X += posun.X*15;
+            smerPohybu.Y+=posun.Y*15;*/
+            /* x_pos +=(int)posun.X*15;
+             y_pos += (int)posun.Y*15;*/
+
+
+
+
+
+
         }
         return false;
     }
