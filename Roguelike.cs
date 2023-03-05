@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Numerics;
 
 namespace nevim
@@ -11,7 +10,7 @@ namespace nevim
         int smer;
         bool colize = false;
         bool killplayerBool = false;
-        bool debugging=true, pohyb;
+        bool debugging = true, pohyb;
 
         static Image bubak_textura1 = Properties.Resources.bubak1;
         static Image bubak_texutra2 = Properties.Resources.bubak2;
@@ -50,35 +49,35 @@ namespace nevim
             int y = 0;
             for (int x = 0; x < 169; x++)
             {
-                    Tile.Tiles[x] = new Tile(60);
-                    Tile.Tiles[x].X = tileX;
-                    Tile.Tiles[x].Y = tileY;              
-                     y += 1;
-                    tileY += Tile.Tiles[x].width;
-                    if (y == 13)
-                    {
-                        tileX += Tile.Tiles[x].width;
-                        tileY = 0;
-                        y = 0;
-                    }
-                
+                Tile.Tiles[x] = new Tile(60);
+                Tile.Tiles[x].X = tileX;
+                Tile.Tiles[x].Y = tileY;
+                y += 1;
+                tileY += Tile.Tiles[x].width;
+                if (y == 13)
+                {
+                    tileX += Tile.Tiles[x].width;
+                    tileY = 0;
+                    y = 0;
+                }
+
             }
         }
         private void spawnBubaku()
         {
             Random rand = new Random();
             int randTile1 = rand.Next(Tile.Tiles.Count);
-            int X=0, Y=0;
+            int X = 0, Y = 0;
             Image textura = Entita.vyberTexturu(bubak_textura1, bubak_texutra2, bubak_textura3, bubak_textura4);
 
             if (Tile.Tiles[randTile1].aktivni)
             {
                 return;
             }
-            X = Tile.Tiles[randTile1].X ;
-            Y = Tile.Tiles[randTile1].Y;    
+            X = Tile.Tiles[randTile1].X;
+            Y = Tile.Tiles[randTile1].Y;
 
-           
+
             AI priserka = new AI("chobotnicka", textura, X, Y, 60, 60);
             priserka.zivoty += udavatelObtiznosti;
             priserka.startKrok = Tile.Tiles[randTile1];
@@ -140,18 +139,21 @@ namespace nevim
                     foreach (Tile tile in ai.AITiles)
                     {
                         graphics.DrawString(tile.Krok.ToString(), Font, Brushes.Black, tile.X, tile.Y);
-                        graphics.DrawString(tile.Parametr.ToString(), Font, Brushes.Black, tile.X , tile.Y +40);//Krok kazdeho dilku
+                        graphics.DrawString(tile.Parametr.ToString(), Font, Brushes.Black, tile.X, tile.Y + 40);//Krok kazdeho dilku
                     }
-                    foreach(Tile tile in ai.uzavrenyList)
+                    foreach (Tile tile in ai.uzavrenyList)
                     {
-                        graphics.DrawRectangle(Pens.Red, tile.X, tile.Y, tile.width,tile.width);
+                        graphics.DrawRectangle(Pens.Red, tile.X, tile.Y, tile.width, tile.width);
 
                     }
-                    graphics.FillRectangle(Brushes.Green, ai.uzavrenyList[0].X, ai.uzavrenyList[0].Y, 60, 60);
+                    if (ai.uzavrenyList.Count > 0)
+                    {
+                        graphics.FillRectangle(Brushes.Green, ai.uzavrenyList[0].X, ai.uzavrenyList[0].Y, 60, 60);
+                    }
 
 
                 }
-              
+
                 //graphics.DrawLine(Pens.Red, new Point(chobotnicka.x_pos + chobotnicka.width / 2, chobotnicka.y_pos + chobotnicka.height / 2), new Point(e1.x_pos + e1.width / 2, e1.y_pos + e1.height / 2)); // Vzdusna cara od priserky ke hraci
 
             }
@@ -160,16 +162,16 @@ namespace nevim
         private void GeneraceKosticek()
         {
             Random rand = new Random();
-            int vzdalenost=0;
+            int vzdalenost = 0;
             foreach (Tile t in Tile.Tiles)
             {
-                foreach(AI ai in AI.vsechnyPriserky)
+                foreach (AI ai in AI.vsechnyPriserky)
                 {
                     vzdalenost = t.vypocitejVzdalenost(ai.x_pos, ai.y_pos);
                 }
                 if (rand.Next(0, 10) == 2)
                 {
-                   // if (t.vypocitejVzdalenost(e1.x_pos, e1.y_pos) > 120 && vzdalenost > 120)
+                    // if (t.vypocitejVzdalenost(e1.x_pos, e1.y_pos) > 120 && vzdalenost > 120)
                     {
                         if (t.X > 40 && t.Y > 40 && t.X < 600 && t.Y < 600)
                         {
@@ -202,7 +204,7 @@ namespace nevim
                         e1.y_pos = Height - 68;
                         break;
                 }
-            
+
                 for (int x = 0; x < Entita.entitaList.Count; x++)
                 {
                     if (Entita.entitaList[x].username == "tile")
@@ -331,27 +333,53 @@ namespace nevim
             }
         }
 
+        private void Roguelike_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            foreach (AI en in AI.vsechnyPriserky)
+            {
+                Tile staryKrok = en.uzavrenyList[0];
+                int staryKrokX = staryKrok.X;
+                int staryKrokY = staryKrok.Y;
+                
+                en.AITiles.Clear();
+                en.uzavrenyList.Clear();
+                en.startKrok.X = staryKrokX;
+                en.startKrok.Y =staryKrokY;
+               
+
+
+
+
+            }
+        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
 
-            
+
             foreach (AI en in AI.vsechnyPriserky)
             {
-                for(int x =0;x<en.uzavrenyList.Count;x++) { 
+
+                for (int x = 0; x < en.uzavrenyList.Count; x++)
+                {
                     if (en.uzavrenyList[x].X == en.x_pos && en.uzavrenyList[x].Y == en.y_pos)
                     {
                         en.uzavrenyList.Remove(en.uzavrenyList[x]);
                     }
                 }
-                    if (!en.startKrok.Kolize(e1) )
+                if (!en.startKrok.Kolize(e1))
                 { en.vyberCestu(); }
-                
-                    
-               
+
+
+
                 en.najdiCestu();
 
-                if (en.Kolize() && en.kolider =="player")
+                if (en.Kolize() && en.kolider == "player")
                 {
                     killplayerBool = true;
                     timer1.Enabled = false;
@@ -363,7 +391,8 @@ namespace nevim
 
             if (pohyb)
             {
-                e1.Kolize();            
+
+                e1.Kolize();
                 Vector2 uhel = Vector2.Normalize(new Vector2(e1.x_pos + 30 - e1.smerPohybu.X, e1.y_pos + 30 - e1.smerPohybu.Y));
                 e1.x_pos += (int)Math.Min(int.MaxValue, uhel.X * rychlost);
                 e1.y_pos += (int)Math.Min(int.MaxValue, uhel.Y * rychlost);

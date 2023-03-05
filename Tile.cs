@@ -46,7 +46,7 @@
                 multiplikator = 0;
 
             }*/
-            return vypocitejVzdalenost(zdrojX, zdrojY) /width;
+            return vypocitejVzdalenost(zdrojX, zdrojY) / width;
         }
         /* static public List<Tile> vyberCestu(List<Tile> fronta)
          {

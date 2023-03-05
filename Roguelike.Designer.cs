@@ -36,6 +36,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // timer1
@@ -96,6 +97,12 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "0";
             // 
+            // timer2
+            // 
+            this.timer2.Enabled = true;
+            this.timer2.Interval = 500;
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
             // Roguelike
             // 
             this.BackColor = System.Drawing.Color.White;
@@ -108,6 +115,7 @@
             this.Name = "Roguelike";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Roguelike - hra";
+            this.Load += new System.EventHandler(this.Roguelike_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
@@ -125,5 +133,6 @@
         private Label label1;
         private CheckBox checkBox1;
         private Label label2;
+        private System.Windows.Forms.Timer timer2;
     }
 }
