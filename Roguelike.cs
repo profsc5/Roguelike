@@ -350,11 +350,7 @@ namespace nevim
                 en.uzavrenyList.Clear();
                 en.startKrok.X = staryKrokX;
                 en.startKrok.Y =staryKrokY;
-               
-
-
-
-
+                Debug.WriteLine(Tile.Tiles.Count);
             }
         }
 
