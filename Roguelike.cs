@@ -398,7 +398,10 @@ namespace nevim
 
             if (pohyb)
             {
-
+                if (AI.pocetPriserek != 0 && (e1.smerPohybu.X < 0 && e1.x_pos<0) || (e1.smerPohybu.X>750 && e1.x_pos > 750) || (e1.y_pos>750&& e1.smerPohybu.Y>750) || (e1.smerPohybu.Y<0 && e1.y_pos<0) )
+                {
+                    return;
+                }
                 e1.Kolize();
                 Vector2 uhel = Vector2.Normalize(new Vector2(e1.x_pos + 30 - e1.smerPohybu.X, e1.y_pos + 30 - e1.smerPohybu.Y));
                 e1.x_pos += (int)Math.Min(int.MaxValue, uhel.X * rychlost);
