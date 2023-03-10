@@ -15,13 +15,7 @@ public class AI : Entita
     public AI(string username, Image textura, int x_pos, int y_pos, int width, int height) : base(username, textura, x_pos, y_pos, width, height)
     {
         pocetPriserek++;
-        /*dalsiKrok = new Tile(60);
-        dalsiKrok.X = x_pos;
-        dalsiKrok.Y = y_pos;
-        dalsiKrok.Krok = 1;*/
         vsechnyPriserky.Add(this);
-
-        //Debug.Write("X :" + dalsiKrok.X);
     }
     public void sledujCil(int cilX, int cilY)
     {
@@ -86,8 +80,6 @@ public class AI : Entita
                 startKrok = uzavrenyList.Last();
             }
         }
-
-
     }
 
     public void najdiCestu()
@@ -99,8 +91,6 @@ public class AI : Entita
     }
     public bool KillPlayer()
     {
-
-
         if (entitaList.Contains(this) && kolider == "player")
         {
             return true;

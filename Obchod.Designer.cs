@@ -90,6 +90,7 @@
             this.buttonObtiznost.Size = new System.Drawing.Size(164, 81);
             this.buttonObtiznost.TabIndex = 4;
             this.buttonObtiznost.UseVisualStyleBackColor = true;
+            this.buttonObtiznost.Click += new System.EventHandler(this.buttonObtiznost_Click);
             // 
             // timer1
             // 

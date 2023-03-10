@@ -79,6 +79,23 @@ namespace nevim
             }
             strW.Close();
         }
+
+        private void buttonObtiznost_Click(object sender, EventArgs e)
+        {
+            int cena = 50;
+            if (cena <= zetony)
+            {
+                Roguelike.udavatelObtiznosti -= 1;
+                odectiZetony(cena);
+                MessageBox.Show("Snížil/a jsi obtížnost hry o 1 bod!");
+                nactiZetony();
+            }
+            else
+            {
+                MessageBox.Show("Nemáš dostatek žetonů!");
+            }
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             texturaCislo++;

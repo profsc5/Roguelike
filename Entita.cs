@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Numerics;
+﻿using System.Numerics;
 
 public class Entita
 {
@@ -78,23 +77,6 @@ public class Entita
         }
         return null;
     }
-    public void kolizeRezoluceX(Entita ent1, Entita ent2)
-    {
-        if (y_pos < ent2.y_pos) y_pos = ent2.y_pos - height;
-
-        if (y_pos + height > ent2.y_pos + ent2.height) y_pos = ent2.y_pos + ent2.height;
-
-
-        kolider = ent2.username;
-        Debug.WriteLine("Kolize");
-
-    }
-    public void kolizeRezoluceY(Entita ent1, Entita ent2)
-    {
-        if (x_pos < ent2.x_pos) x_pos = ent2.x_pos - width;
-
-        if (x_pos + width > ent2.x_pos + ent2.width) x_pos = ent2.x_pos + ent2.width;
-    }
     public bool colliding(int x_pos, int y_pos, Entita ent2)
     {
 
@@ -114,50 +96,13 @@ public class Entita
 
     public bool Kolize()
     {
-
         foreach (Entita ent2 in entitaList)
         {
-            //if (colliding(this, ent2)) { }
-            /*if (colliding(x_pos,y_pos, ent2))
+            if (colliding(x_pos, y_pos, ent2))
             {
-                kolizeRezoluceX(this, ent2);
-
-            }
-            if (colliding(x_pos,y_pos, ent2))
-            {
-                kolizeRezoluceY(this, ent2);
-            }
-            */
-
-
-
-
-
-
-            if (ent2.username != username)
-            {
-                if (x_pos < ent2.width + ent2.x_pos
-                   && x_pos + width > ent2.x_pos
-                   && y_pos < ent2.y_pos + ent2.height
-                   && y_pos + height > ent2.y_pos)
-                {
-                    kolider = ent2.username;
+                kolider = ent2.username;
                     return true;
-                }
             }
-            /*Vector2 rozdilovyVektor = new Vector2((x_pos + width / 2) - (ent2.x_pos + ent2.width / 2), (y_pos + height / 2) - (ent2.y_pos + ent2.height / 2));
-
-            Vector2 posun =Vector2.Normalize(Vector2.Subtract(-rozdilovyVektor, -smerPohybu));
-            smerPohybu.X += posun.X*15;
-            smerPohybu.Y+=posun.Y*15;*/
-            /* x_pos +=(int)posun.X*15;
-             y_pos += (int)posun.Y*15;*/
-
-
-
-
-
-
         }
         return false;
     }

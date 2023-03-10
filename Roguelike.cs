@@ -10,7 +10,7 @@ namespace nevim
         int smer;
         bool colize = false;
         bool killplayerBool = false;
-        bool debugging = true, pohyb;
+        bool debugging = false, pohyb;
 
         static Image bubak_textura1 = Properties.Resources.bubak1;
         static Image bubak_texutra2 = Properties.Resources.bubak2;
@@ -163,16 +163,11 @@ namespace nevim
         private void GeneraceKosticek()
         {
             Random rand = new Random();
-            int vzdalenost = 0;
             foreach (Tile t in Tile.Tiles)
             {
-                foreach (AI ai in AI.vsechnyPriserky)
-                {
-                    vzdalenost = t.vypocitejVzdalenost(ai.x_pos, ai.y_pos);
-                }
                 if (rand.Next(0, 10) == 2)
                 {
-                    //if (t.vypocitejVzdalenost(e1.x_pos, e1.y_pos) >60&& vzdalenost > 60)
+                    if (t.vypocitejVzdalenost(e1.x_pos, e1.y_pos) > 60)
                     {
                         if (t.X > 40 && t.Y > 40 && t.X < 600 && t.Y < 600)
                         {
@@ -279,6 +274,7 @@ namespace nevim
         {
             e1.smerPohybu = Vector2.Zero;
             e1.smerPohybu = new Vector2(e1.x_pos + 30, e1.y_pos + 30);
+            
             if (e.KeyCode == Keys.A)
             {
                 e1.smerPohybu.X += rychlost;
@@ -301,6 +297,7 @@ namespace nevim
 
             }
 
+
             pohyb = true;
 
             //
@@ -315,6 +312,8 @@ namespace nevim
         {
             if (killplayerBool == true)
             {
+                timer1.Stop();
+                timer2.Stop();
                 StreamWriter strW = new StreamWriter("skore.txt", true);
 
                 strW.Write(skore.ToString());
@@ -343,25 +342,22 @@ namespace nevim
         {
             foreach (AI en in AI.vsechnyPriserky)
             {
-
+                if (en.uzavrenyList.Count == 0)
+                {
+                    return;
+                }
                 Tile staryKrok = en.uzavrenyList.First();
+
+
                 int staryKrokX = staryKrok.X;
                 int staryKrokY = staryKrok.Y;
 
-                for (int x = 0; x < en.uzavrenyList.Count; x++)
-                {
-                    en.uzavrenyList.RemoveAt(x);
-                }
-                for (int x = 0; x < en.AITiles.Count; x++)
-                {
-                    en.AITiles.RemoveAt(x);
-
-                }
-
+                en.uzavrenyList.Clear();
+                en.AITiles.Clear();
+                en.startKrok = null;
+                en.startKrok = new Tile(60);
                 en.startKrok.X = staryKrokX;
                 en.startKrok.Y = staryKrokY;
-
-                Debug.WriteLine(Tile.Tiles.Count);
             }
         }
 
@@ -376,17 +372,32 @@ namespace nevim
                         en.uzavrenyList.Remove(en.uzavrenyList[x]);
                     }
                 }
+
                 if (!en.startKrok.Kolize(e1))
                 { en.vyberCestu(); }
-
 
                 if (en.uzavrenyList.Count > 0)
                 {
                     en.najdiCestu();
-                }
+                }                              
+            }
+            int oldposX = e1.x_pos;
+            int oldposy = e1.y_pos;
+
+            if (pohyb)
+            {
 
 
-                if (en.Kolize() && en.kolider == "player")
+                Vector2 uhel = Vector2.Normalize(new Vector2(e1.x_pos + 30 - e1.smerPohybu.X, e1.y_pos + 30 - e1.smerPohybu.Y));
+                e1.x_pos += (int)Math.Min(int.MaxValue, uhel.X * rychlost);
+                e1.y_pos += (int)Math.Min(int.MaxValue, uhel.Y * rychlost);
+
+            }
+            if (e1.Kolize())
+            {
+                e1.x_pos = oldposX;
+                e1.y_pos = oldposy;
+                if (e1.kolider == "chobotnicka")
                 {
                     killplayerBool = true;
                     timer1.Enabled = false;
@@ -394,23 +405,11 @@ namespace nevim
                     smrt();
                 }
             }
-
-
-            if (pohyb)
-            {
-
-                e1.Kolize();
-                Vector2 uhel = Vector2.Normalize(new Vector2(e1.x_pos + 30 - e1.smerPohybu.X, e1.y_pos + 30 - e1.smerPohybu.Y));
-                e1.x_pos += (int)Math.Min(int.MaxValue, uhel.X * rychlost);
-                e1.y_pos += (int)Math.Min(int.MaxValue, uhel.Y * rychlost);
-            }
-
             for (int x = 0; x < strela.strelaList.Count; x++)
             {
                 if (strela.strelaList[x].kolider != null)
                 {
                     strela.strelaList[x].kolider.zivoty -= poskozeni;
-                    Debug.WriteLine(strela.strelaList[x].kolider.zivoty);
                     if (strela.strelaList[x].kolider.zivoty < 1)
                     {
 
