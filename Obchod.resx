@@ -57,6 +57,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="buttonPoskozeni.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonPoskozeni.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -498,6 +501,9 @@
         c8z/B10l4KGcz0OWAAAAAElFTkSuQmCC
 </value>
   </data>
+  <metadata name="buttonRychlost.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="buttonRychlost.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAKMAAABRCAIAAAAxVIHFAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
@@ -689,13 +695,22 @@
         RK5CYII=
 </value>
   </data>
+  <metadata name="label1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="buttonObtiznost.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
+  </metadata>
+  <metadata name="pictureBox1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
   <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAKMAAABRCAYAAAC+NhaSAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        EQAACxEBf2RfkQAACCNJREFUeF7tmcGVFEkSBUeHPe6d6+qAFOiADIiABkiABCiAAAiAANy5s2392nI9
+        EAAACxABrSO9dQAACCNJREFUeF7tmcGVFEkSBUeHPe6d6+qAFOiADIiABkiABCiAAAiAANy5s2392nI9
         P15VWQ07Gc34f88mKz3CIzzDf2U3PX/9+PFjGJagDQ7DGbTBYTiDNjgMZ9AGh+EM2uAwnEEbHIYzaIPD
         cAZtcBjOoA0Owxm0wWE4gzY4vAwexH9eDFl/0gaHl0E2e3Wy/qQNDi8Dm/zvf/1nacaM/wDGjMMyjBmH
         ZfjjzOjEYX2a5j3GOwOsxKX6E9QuMKxF10xiL6F/1pn1J2iXMKyH/Wmat42vjHVm/QnaJQzrYX+a5m3j

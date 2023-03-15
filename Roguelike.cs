@@ -8,7 +8,6 @@ namespace nevim
         public static int skore, ulozeneSkore, rychlost = 10, udavatelObtiznosti = 0;
         public static double poskozeni = 1;
         int smer;
-        bool colize = false;
         bool killplayerBool = false;
         bool debugging = false, pohyb;
 
