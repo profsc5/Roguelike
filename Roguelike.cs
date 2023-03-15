@@ -36,6 +36,8 @@ namespace nevim
             InitializeComponent();
             KeyPreview = true;
             DoubleBuffered = true;
+            Width = 800;
+            Height = 800;
             fillTiles();
             GeneraceKosticek();
             GeneraceLokace();
@@ -233,7 +235,7 @@ namespace nevim
         {
             if (AI.pocetPriserek < 1)
             {
-                if (e1.x_pos > Width - 24)
+                if (e1.x_pos > Width - 50)
                 {
                     smer = 1;
                     return true;
@@ -384,14 +386,18 @@ namespace nevim
             int oldposX = e1.x_pos;
             int oldposy = e1.y_pos;
 
-            if (pohyb)
+            if (pohyb )
             {
-
+               
 
                 Vector2 uhel = Vector2.Normalize(new Vector2(e1.x_pos + 30 - e1.smerPohybu.X, e1.y_pos + 30 - e1.smerPohybu.Y));
                 e1.x_pos += (int)Math.Min(int.MaxValue, uhel.X * rychlost);
                 e1.y_pos += (int)Math.Min(int.MaxValue, uhel.Y * rychlost);
 
+                if (e1.x_pos < 10){e1.x_pos = 10;}
+                else if(e1.x_pos> 770) { e1.x_pos = 770;}
+                else if (e1.y_pos < 10) { e1.y_pos = 10;}
+                else if (e1.y_pos > 770) { e1.y_pos = 770; }
             }
             if (e1.Kolize())
             {

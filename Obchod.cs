@@ -9,6 +9,7 @@ namespace nevim
         public Obchod()
         {
             InitializeComponent();
+            Width = 500; Height=500;
         }
 
         private void Form3_Paint(object sender, PaintEventArgs e)

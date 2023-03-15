@@ -11,6 +11,8 @@
         {
 
             InitializeComponent();
+            Width = 800;
+            Height = 800;
             BackgroundImage = Properties.Resources.back1;
 
         }
@@ -67,6 +69,11 @@
         {
             Obchod f = new Obchod();
             f.ShowDialog();
+        }
+
+        private void Menu_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
