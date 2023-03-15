@@ -1,8 +1,5 @@
 {
   "profiles": {
-    "Profil 1": {
-      "commandName": "Project"
-    },
     "Roguelike": {
       "commandName": "Project"
     }
