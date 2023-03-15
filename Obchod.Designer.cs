@@ -41,6 +41,7 @@
             // 
             // buttonPoskozeni
             // 
+            this.buttonPoskozeni.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.buttonPoskozeni.BackColor = System.Drawing.Color.Transparent;
             this.buttonPoskozeni.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonPoskozeni.BackgroundImage")));
             this.buttonPoskozeni.FlatAppearance.BorderColor = System.Drawing.Color.Black;
@@ -56,6 +57,7 @@
             // 
             // buttonRychlost
             // 
+            this.buttonRychlost.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.buttonRychlost.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.buttonRychlost.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRychlost.Image = ((System.Drawing.Image)(resources.GetObject("buttonRychlost.Image")));
@@ -81,6 +83,7 @@
             // 
             // buttonObtiznost
             // 
+            this.buttonObtiznost.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.buttonObtiznost.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.buttonObtiznost.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonObtiznost.Image = global::nevim.Properties.Resources.obtiznost;
