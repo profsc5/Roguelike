@@ -5,7 +5,7 @@ namespace nevim
 {
     public partial class Roguelike : Form
     {
-        public static int skore, ulozeneSkore, rychlost = 10, udavatelObtiznosti = 0;
+        public static int skore, ulozeneSkore, rychlost = 8, udavatelObtiznosti = 0;
         public static double poskozeni = 1;
         int smer;
         bool killplayerBool = false;
@@ -24,7 +24,7 @@ namespace nevim
         static Image hrac_textura = Properties.Resources.hrac;
 
         //Inicializace hráèe na zaèátku hry
-        public Entita e1 = new Entita("player", hrac_textura, 500, 500, 60, 60);
+        public Entita e1 = new Entita("player", hrac_textura, 500, 500, 50, 50);
 
         //Inicializace každé entity- musí se zadávat postupnì, aby se dobøe pøekrývaly     
         //AI chobotnicka = new AI("chobotnicka", bubak_textura1, 150, 150, 60, 60);
@@ -38,9 +38,9 @@ namespace nevim
             Width = 800;
             Height = 800;
             fillTiles();
-            GeneraceKosticek();
+       
             GeneraceLokace();
-            spawnBubaku();
+           
         }
         //Rozdìlíme celou mapu na dílky
         private void fillTiles()
@@ -75,14 +75,18 @@ namespace nevim
             {
                 return;
             }
-            X = Tile.Tiles[randTile1].X;
-            Y = Tile.Tiles[randTile1].Y;
+            else
+            {
+                X = Tile.Tiles[randTile1].X;
+                Y = Tile.Tiles[randTile1].Y;
 
 
-            AI priserka = new AI("chobotnicka", textura, X, Y, 60, 60);
-            priserka.zivoty += udavatelObtiznosti;
-            priserka.startKrok = Tile.Tiles[randTile1];
-            priserka.vyberCestu();
+                AI priserka = new AI("chobotnicka", textura, X, Y, 60, 60);
+                priserka.zivoty += udavatelObtiznosti;
+                priserka.startKrok = Tile.Tiles[randTile1];
+                priserka.vyberCestu();
+            }
+          
 
         }
         //Vykreslování textur
@@ -150,7 +154,7 @@ namespace nevim
                     }
                     if (ai.uzavrenyList.Count > 0)
                     {
-                        graphics.FillRectangle(Brushes.Green, ai.uzavrenyList[0].X, ai.uzavrenyList[0].Y, 60, 60);
+                        graphics.FillRectangle(Brushes.Brown, ai.uzavrenyList[0].X, ai.uzavrenyList[0].Y, 60, 60);
                     }
 
 
@@ -164,18 +168,28 @@ namespace nevim
         private void GeneraceKosticek()
         {
             Random rand = new Random();
-            foreach (Tile t in Tile.Tiles)
+            foreach (Tile t in Tile.Tiles )
             {
-                if (rand.Next(0, 10) == 2)
+                if (rand.Next(0, 20) == 2)
                 {
-                    if (t.vypocitejVzdalenost(e1.x_pos, e1.y_pos) > 60)
+                    foreach (AI ai in AI.vsechnyPriserky)
                     {
-                        if (t.X > 40 && t.Y > 40 && t.X < 600 && t.Y < 600)
+                        if( t.vypocitejVzdalenost(e1.x_pos, e1.y_pos) > 120  )
                         {
-                            Image textura = Entita.vyberTexturu(blok_textura4, blok_textura3, blok_textura2, blok_textura1);
-                            new Entita("tile", textura, t.X, t.Y, 60, 60);
+                            Debug.WriteLine(t.vypocitejKrok(ai.x_pos, ai.y_pos));
+                            if (t.vypocitejKrok(ai.x_pos, ai.y_pos) > 2)
+                            {
 
-                            t.aktivni = true;
+                                if (t.X > 40 && t.Y > 40 && t.X < 600 && t.Y < 600)
+                                {
+
+                                    t.aktivni = true; Image textura = Entita.vyberTexturu(blok_textura4, blok_textura3, blok_textura2, blok_textura1);
+                                    new Entita("tile", textura, t.X, t.Y, 60, 60);
+
+
+                                }
+
+                            }
                         }
                     }
                 }
@@ -184,8 +198,7 @@ namespace nevim
 
         private void GeneraceLokace()
         {
-            if (PohybMapy())
-            {
+
                 switch (smer)
                 {
                     case 1:
@@ -206,10 +219,12 @@ namespace nevim
                 {
                     if (Entita.entitaList[x].username == "tile")
                     {
+                        Entita.entitaList[x].aktivni = false;
                         Entita.entitaList.RemoveAt(x);
+                        
                     }
                 }
-
+                
 
                 udavatelObtiznosti++;
                 for (int x = 0; x <= obtiznost(); x++)
@@ -217,12 +232,12 @@ namespace nevim
                     spawnBubaku();
                 }
                 GeneraceKosticek();
-            }
+            
         }
         private int obtiznost()
         {
             Random rand = new Random();
-            float multiplikator = rand.Next(0, 11);
+            float multiplikator = rand.Next(0, 5);
             return Convert.ToInt32(Math.Ceiling(udavatelObtiznosti * (multiplikator / 10 + 1)));
 
         }
@@ -279,27 +294,27 @@ namespace nevim
             if (e.KeyCode == Keys.A)
             {
                 e1.smerPohybu.X += rychlost;
-
+                pohyb = true;
             }
             if (e.KeyCode == Keys.D)
             {
                 e1.smerPohybu.X -= rychlost;
-
+                pohyb = true;
             }
             if (e.KeyCode == Keys.S)
             {
                 e1.smerPohybu.Y -= rychlost;
-
+                pohyb = true;
 
             }
             if (e.KeyData == Keys.W)
             {
                 e1.smerPohybu.Y += rychlost;
-
+                pohyb = true;
             }
 
 
-            pohyb = true;
+            
 
             //
             //Restart
@@ -349,16 +364,27 @@ namespace nevim
                 }
                 Tile staryKrok = en.uzavrenyList.First();
 
-
+                bool aktivniStary = false;
                 int staryKrokX = staryKrok.X;
                 int staryKrokY = staryKrok.Y;
 
                 en.uzavrenyList.Clear();
                 en.AITiles.Clear();
+                if (staryKrok.aktivni)
+                {
+                    aktivniStary= true;
+                }
+                Tile.Tiles.Remove(staryKrok);
                 en.startKrok = null;
                 en.startKrok = new Tile(60);
+                if (aktivniStary)
+                {
+                    en.startKrok.aktivni = true;
+                }
+                
                 en.startKrok.X = staryKrokX;
                 en.startKrok.Y = staryKrokY;
+
             }
         }
 
@@ -373,10 +399,16 @@ namespace nevim
                         en.uzavrenyList.Remove(en.uzavrenyList[x]);
                     }
                 }
-
+         
                 if (!en.startKrok.Kolize(e1))
                 { en.vyberCestu(); }
+                if(en.Kolize() && en.kolider=="player")
+                {
+                    killplayerBool = true;
+                    timer1.Enabled = false;
 
+                    smrt();
+                }
                 if (en.uzavrenyList.Count > 0)
                 {
                     en.najdiCestu();
@@ -386,29 +418,24 @@ namespace nevim
             int oldposy = e1.y_pos;
 
             if (pohyb )
-            {
-               
-
+            {          
                 Vector2 uhel = Vector2.Normalize(new Vector2(e1.x_pos + 30 - e1.smerPohybu.X, e1.y_pos + 30 - e1.smerPohybu.Y));
                 e1.x_pos += (int)Math.Min(int.MaxValue, uhel.X * rychlost);
                 e1.y_pos += (int)Math.Min(int.MaxValue, uhel.Y * rychlost);
-
-                if (e1.x_pos < 10){e1.x_pos = 10;}
-                else if(e1.x_pos> 770) { e1.x_pos = 770;}
-                else if (e1.y_pos < 10) { e1.y_pos = 10;}
-                else if (e1.y_pos > 770) { e1.y_pos = 770; }
+                if (AI.vsechnyPriserky.Count > 0)
+                {
+                    if (e1.x_pos < 10) { e1.x_pos = 10; }
+                    else if (e1.x_pos > 770) { e1.x_pos = 770; }
+                    else if (e1.y_pos < 10) { e1.y_pos = 10; }
+                    else if (e1.y_pos > 740) { e1.y_pos = 740; }
+                }
+   
             }
+            
             if (e1.Kolize())
             {
                 e1.x_pos = oldposX;
                 e1.y_pos = oldposy;
-                if (e1.kolider == "chobotnicka")
-                {
-                    killplayerBool = true;
-                    timer1.Enabled = false;
-
-                    smrt();
-                }
             }
             for (int x = 0; x < strela.strelaList.Count; x++)
             {

@@ -2,16 +2,14 @@
 
 public class AI : Entita
 {
-    public int hracX, hracWidth, hracY, hracHeight, distance;
+    public int hracX, hracWidth, hracY, hracHeight, distance,rychlost=3;
     public int Krok;
     public Tile dalsiKrok, startKrok;
     static public int pocetPriserek = 0;
-    public List<Tile> walkedTiles = new List<Tile>();
     public List<Tile> AITiles = new List<Tile>();
     public List<Tile> uzavrenyList = new List<Tile>();
 
     static public List<AI> vsechnyPriserky = new List<AI>();
-    public List<Tile> fronta = new List<Tile>();
     public AI(string username, Image textura, int x_pos, int y_pos, int width, int height) : base(username, textura, x_pos, y_pos, width, height)
     {
         pocetPriserek++;
@@ -21,19 +19,19 @@ public class AI : Entita
     {
         if (x_pos + width / 2 > cilX + 30)
         {
-            x_pos -= 5;
+            x_pos -= rychlost;
         }
         else if (x_pos + width / 2 < cilX + 30)
         {
-            x_pos += 5;
+            x_pos += rychlost;
         }
         else if (y_pos + height / 2 > cilY + 30)
         {
-            y_pos -= 5;
+            y_pos -= rychlost;
         }
         else if (y_pos + height / 2 < cilY + 30)
         {
-            y_pos += 5;
+            y_pos += rychlost;
         }
     }
     public void zkontrolujVedlejsi(int X, int Y)
@@ -41,12 +39,11 @@ public class AI : Entita
 
         foreach (Tile t in Tile.Tiles)
         {
-            if (!AITiles.Contains(t) && !uzavrenyList.Contains(t) && !t.aktivni && ((Math.Abs(X - t.X) + Math.Abs(Y - t.Y)) / width) < 2)
+            if (!t.aktivni && !AITiles.Contains(t) && !uzavrenyList.Contains(t)  && ((Math.Abs(X - t.X) + Math.Abs(Y - t.Y)) / width) < 2)
             {
                 AITiles.Add(t);
                 if (t.X == X && t.Y == Y)
                 {
-                    t.parent = startKrok;
                     uzavrenyList.Add(startKrok);
                 }
             }
@@ -86,7 +83,11 @@ public class AI : Entita
     {
         if (uzavrenyList.Count > 0)
         {
+            int oldposX = x_pos;
+            int oldposY = y_pos;
             sledujCil(uzavrenyList[0].X, uzavrenyList[0].Y);
+            
+            
         }
     }
     public bool KillPlayer()

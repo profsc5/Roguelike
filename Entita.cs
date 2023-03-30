@@ -3,7 +3,6 @@
 public class Entita
 {
     public int x_pos, y_pos;
-    public Vector2 position;
     public Vector2 smerPohybu;
     public int width { get; set; }
     public int height { get; set; }
@@ -26,10 +25,7 @@ public class Entita
         this.y_pos = y_pos;
         this.width = width;
         this.height = height;
-        position = new Vector2(x_pos + width / 2, y_pos + height / 2);
-
         entitaList.Add(this);
-
         if (username == "tile")
         {
             generatedTiles.Add(this.username);
@@ -38,7 +34,6 @@ public class Entita
         {
             zivoty = 5;
         }
-
     }
     static public Image vyberTexturu(Image img1, Image img2, Image img3, Image img4)
     {
@@ -79,7 +74,6 @@ public class Entita
     }
     public bool colliding(int x_pos, int y_pos, Entita ent2)
     {
-
         if (ent2.username != username)
         {
             if (x_pos < ent2.width + ent2.x_pos
@@ -100,16 +94,11 @@ public class Entita
         {
             if (colliding(x_pos, y_pos, ent2))
             {
-                kolider = ent2.username;
+                    kolider = ent2.username;
                     return true;
             }
         }
         return false;
     }
-
-
-
-
-
 }
 
