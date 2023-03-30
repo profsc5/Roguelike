@@ -49,10 +49,10 @@
             this.buttonPoskozeni.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.buttonPoskozeni.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonPoskozeni.Image = ((System.Drawing.Image)(resources.GetObject("buttonPoskozeni.Image")));
-            this.buttonPoskozeni.Location = new System.Drawing.Point(32, 197);
+            this.buttonPoskozeni.Location = new System.Drawing.Point(18, 183);
             this.buttonPoskozeni.Margin = new System.Windows.Forms.Padding(0);
             this.buttonPoskozeni.Name = "buttonPoskozeni";
-            this.buttonPoskozeni.Size = new System.Drawing.Size(165, 81);
+            this.buttonPoskozeni.Size = new System.Drawing.Size(189, 108);
             this.buttonPoskozeni.TabIndex = 0;
             this.buttonPoskozeni.UseVisualStyleBackColor = false;
             this.buttonPoskozeni.Click += new System.EventHandler(this.buttonPoskozeni_Click);
@@ -68,10 +68,10 @@
             this.buttonRychlost.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.buttonRychlost.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRychlost.Image = ((System.Drawing.Image)(resources.GetObject("buttonRychlost.Image")));
-            this.buttonRychlost.Location = new System.Drawing.Point(159, 350);
+            this.buttonRychlost.Location = new System.Drawing.Point(154, 336);
             this.buttonRychlost.Margin = new System.Windows.Forms.Padding(0);
             this.buttonRychlost.Name = "buttonRychlost";
-            this.buttonRychlost.Size = new System.Drawing.Size(163, 81);
+            this.buttonRychlost.Size = new System.Drawing.Size(186, 108);
             this.buttonRychlost.TabIndex = 1;
             this.buttonRychlost.UseVisualStyleBackColor = false;
             this.buttonRychlost.Click += new System.EventHandler(this.buttonRychlost_Click);
@@ -82,9 +82,9 @@
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(19)))), ((int)(((byte)(47)))));
             this.label1.Font = new System.Drawing.Font("Niagara Solid", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(250, 90);
+            this.label1.Location = new System.Drawing.Point(286, 120);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 23);
+            this.label1.Size = new System.Drawing.Size(0, 29);
             this.label1.TabIndex = 3;
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -99,10 +99,10 @@
             this.buttonObtiznost.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.buttonObtiznost.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonObtiznost.Image = global::nevim.Properties.Resources.obtiznost;
-            this.buttonObtiznost.Location = new System.Drawing.Point(298, 197);
+            this.buttonObtiznost.Location = new System.Drawing.Point(286, 182);
             this.buttonObtiznost.Margin = new System.Windows.Forms.Padding(0);
             this.buttonObtiznost.Name = "buttonObtiznost";
-            this.buttonObtiznost.Size = new System.Drawing.Size(164, 81);
+            this.buttonObtiznost.Size = new System.Drawing.Size(187, 108);
             this.buttonObtiznost.TabIndex = 4;
             this.buttonObtiznost.UseVisualStyleBackColor = false;
             this.buttonObtiznost.Click += new System.EventHandler(this.buttonObtiznost_Click);
@@ -116,27 +116,28 @@
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(159, 71);
+            this.pictureBox1.Location = new System.Drawing.Point(182, 95);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(124, 63);
+            this.pictureBox1.Size = new System.Drawing.Size(142, 84);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
             // Obchod
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(484, 461);
+            this.ClientSize = new System.Drawing.Size(482, 453);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.buttonObtiznost);
             this.Controls.Add(this.buttonRychlost);
             this.Controls.Add(this.buttonPoskozeni);
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Obchod";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Roguelike - obchod";
