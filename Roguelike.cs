@@ -38,9 +38,9 @@ namespace nevim
             Width = 800;
             Height = 800;
             fillTiles();
-       
+
             GeneraceLokace();
-           
+
         }
         //Rozdìlíme celou mapu na dílky
         private void fillTiles()
@@ -86,7 +86,7 @@ namespace nevim
                 priserka.startKrok = Tile.Tiles[randTile1];
                 priserka.vyberCestu();
             }
-          
+
 
         }
         //Vykreslování textur
@@ -168,13 +168,13 @@ namespace nevim
         private void GeneraceKosticek()
         {
             Random rand = new Random();
-            foreach (Tile t in Tile.Tiles )
+            foreach (Tile t in Tile.Tiles)
             {
                 if (rand.Next(0, 20) == 2)
                 {
                     foreach (AI ai in AI.vsechnyPriserky)
                     {
-                        if( t.vypocitejVzdalenost(e1.x_pos, e1.y_pos) > 120  )
+                        if (t.vypocitejVzdalenost(e1.x_pos, e1.y_pos) > 120)
                         {
                             Debug.WriteLine(t.vypocitejKrok(ai.x_pos, ai.y_pos));
                             if (t.vypocitejKrok(ai.x_pos, ai.y_pos) > 2)
@@ -199,40 +199,40 @@ namespace nevim
         private void GeneraceLokace()
         {
 
-                switch (smer)
-                {
-                    case 1:
-                        e1.x_pos = 5;
-                        break;
-                    case 2:
-                        e1.x_pos = Width - 24;
-                        break;
-                    case 3:
-                        e1.y_pos = 5;
-                        break;
-                    case 4:
-                        e1.y_pos = Height - 68;
-                        break;
-                }
+            switch (smer)
+            {
+                case 1:
+                    e1.x_pos = 5;
+                    break;
+                case 2:
+                    e1.x_pos = Width - 24;
+                    break;
+                case 3:
+                    e1.y_pos = 5;
+                    break;
+                case 4:
+                    e1.y_pos = Height - 68;
+                    break;
+            }
 
-                for (int x = 0; x < Entita.entitaList.Count; x++)
+            for (int x = 0; x < Entita.entitaList.Count; x++)
+            {
+                if (Entita.entitaList[x].username == "tile")
                 {
-                    if (Entita.entitaList[x].username == "tile")
-                    {
-                        Entita.entitaList[x].aktivni = false;
-                        Entita.entitaList.RemoveAt(x);
-                        
-                    }
-                }
-                
+                    Entita.entitaList[x].aktivni = false;
+                    Entita.entitaList.RemoveAt(x);
 
-                udavatelObtiznosti++;
-                for (int x = 0; x <= obtiznost(); x++)
-                {
-                    spawnBubaku();
                 }
-                GeneraceKosticek();
-            
+            }
+
+
+            udavatelObtiznosti++;
+            for (int x = 0; x <= obtiznost(); x++)
+            {
+                spawnBubaku();
+            }
+            GeneraceKosticek();
+
         }
         private int obtiznost()
         {
@@ -290,7 +290,7 @@ namespace nevim
         {
             e1.smerPohybu = Vector2.Zero;
             e1.smerPohybu = new Vector2(e1.x_pos + 30, e1.y_pos + 30);
-            
+
             if (e.KeyCode == Keys.A)
             {
                 e1.smerPohybu.X += rychlost;
@@ -314,7 +314,7 @@ namespace nevim
             }
 
 
-            
+
 
             //
             //Restart
@@ -372,7 +372,7 @@ namespace nevim
                 en.AITiles.Clear();
                 if (staryKrok.aktivni)
                 {
-                    aktivniStary= true;
+                    aktivniStary = true;
                 }
                 Tile.Tiles.Remove(staryKrok);
                 en.startKrok = null;
@@ -381,7 +381,7 @@ namespace nevim
                 {
                     en.startKrok.aktivni = true;
                 }
-                
+
                 en.startKrok.X = staryKrokX;
                 en.startKrok.Y = staryKrokY;
 
@@ -399,10 +399,10 @@ namespace nevim
                         en.uzavrenyList.Remove(en.uzavrenyList[x]);
                     }
                 }
-         
+
                 if (!en.startKrok.Kolize(e1))
                 { en.vyberCestu(); }
-                if(en.Kolize() && en.kolider=="player")
+                if (en.Kolize() && en.kolider == "player")
                 {
                     killplayerBool = true;
                     timer1.Enabled = false;
@@ -412,13 +412,13 @@ namespace nevim
                 if (en.uzavrenyList.Count > 0)
                 {
                     en.najdiCestu();
-                }                              
+                }
             }
             int oldposX = e1.x_pos;
             int oldposy = e1.y_pos;
 
-            if (pohyb )
-            {          
+            if (pohyb)
+            {
                 Vector2 uhel = Vector2.Normalize(new Vector2(e1.x_pos + 30 - e1.smerPohybu.X, e1.y_pos + 30 - e1.smerPohybu.Y));
                 e1.x_pos += (int)Math.Min(int.MaxValue, uhel.X * rychlost);
                 e1.y_pos += (int)Math.Min(int.MaxValue, uhel.Y * rychlost);
@@ -429,9 +429,9 @@ namespace nevim
                     else if (e1.y_pos < 10) { e1.y_pos = 10; }
                     else if (e1.y_pos > 740) { e1.y_pos = 740; }
                 }
-   
+
             }
-            
+
             if (e1.Kolize())
             {
                 e1.x_pos = oldposX;
